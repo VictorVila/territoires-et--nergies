@@ -111,3 +111,10 @@ Les scripts python sont intégrés dans des jupyter notebooks, ce qui facilité 
 
 ## Navigateurs compatibles
 Firefox, Opera, Chrome, Internet Explorer
+
+
+## Code source
+Les codes sources sont disponibles sur Github : https://github.com/VictorVila/territoires-et-energies,
+
+## License
+Creative Commons Paternité-Partage des Conditions Initiales à l'Identique 3.0 non transposé (CC BY-SA 3.0 Unported)
