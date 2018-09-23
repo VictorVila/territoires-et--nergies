@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Territoires et énergies</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Quattrocento+Sans:700" rel="stylesheet">
+  <link href="./css/style.css?i=1231" rel="stylesheet">
+</head>
+<body id="body">
+  <main>
+    <div id="logoW">
+      <div id="menu" class="w">
+        <a href="/"><span id="logo">Territoires et énergies</span></a>
+      </div>
+    </div>
+
+    <div id="rechercheW">
+      <div id="recherche" class='w'>
+        <p><q id="nbResultats"></q><br><input id="barreRecherche" value="" placeholder="Tapez ici le nom d'une commune ayant entre 20K et 50K habitants"></p>
+        <div id="resultatsRecherche"></div>
+      </div>
+    </div>
+
+    <div id="infoW">
+      <div id="info" class='w'>
+        <h1 class='home'>Explorez les données Air et Energie<br>de 371 communes</h1>
+        <div><img id='questions' src='img/titre-1.png'></div>
+        <h2>Présentation de l'outil</h2>
+        <p>Cet outil permet à tout public, d'explorer la façon dont <b>chacune des 371 communes ayant entre 20K et 50K habitants</b> consomment de l'énergie et les effets sur qualité de l'air de cette consommation.</p>
+        <p>La prise de conscience étant le premier objectif, cet outil peut aussi servir comme point de départ pour l'élaboration d'un Plan Energie Air Climat.</p>
+        <p>Toutes les informations présentées ont été élaborées à partir de <b class='marqueur'>données ouvertes</b>, pour dresser un ensemble d'indicateurs concernant l'énergie et l'air des différentes communes.</p>
+
+        <h2>Comment l'utiliser ?</h2>
+        <p><span class='marqueur'>Commencez à écrire</span> le nom d'une commune et <span class='marqueur'>faîtes une sélection sur la liste proposée</span>.</p>
+        <p>Vous découvrirez <b>combien et comment</b> elle consomme de l'énergie ainsi que les <b>émissions</b> de substances polluantes qui sont associées.</p>
+
+
+        <h2>Limité aux collectivités de 20 000 à 50 000 habitants</h2>
+        <p>Cet outil a été créé dans la cadre du concours de datavisualisation #DataEnergie. Comme spécifié par le défi n°1 du concours, cet outil cible exclusivement les colectivités de 20K à 50K habitants. Si vous ne trouvez pas une commune, il est possible que sa population soit inférieure ou supérieure à ces limites.</p>
+        <p>Cépendant, la conception de l'outil permet d'envisager qu'il soit facilement éténdu à toutes les collectivités.</p>
+        <p>Les données de certaines communes des DOM TOM ne semblent malheureusement pas complètes.</p>
+
+      </div>
+    </div>
+
+    <div id="container" style="display: none;">
+
+      <div id="communeW">
+        <div id="commune" class='w'>
+          <!-- <h2>Chiffres-clés de la commune</h2> -->
+          <img id='questionCommune' src='img/question-commune.png' class='question questionG'>
+          <p id="libelle3rem"></p>
+          <p id='deptRegionEPCI'>
+            <b class="upper" id="deptRegion"></b><br>
+            EPCI <span id="epci"></span> , code Insee : <span id="insee"></span>
+          </p>
+
+          <div id="chiffresCles">
+            <p class="chiffres"><b id="hb2015"></b> habitants en 2015</p>
+            <p class="chiffres"><b id="hb2010"></b> habitants depuis 2010</p>
+            <p class="chiffres"><b id="menages"></b> ménages</p>
+            <p class="chiffres"><b id="etbActifs"></b> établissements actifs</p>
+            <p class="chiffres"><b id="superficie"></b> km² de superficie</p>
+            <p class="source">Données issues de la <a href="https://www.insee.fr/fr/statistiques/2521169">Base comparateur de territoires</a> de l'Insee et de <a href="http://www.nosdonnees.fr/wiki/index.php/Fichier:EUCircos_Regions_departements_circonscriptions_communes_gps.csv.gz">NosDonnées</a></p>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div id='dpeW'>
+        <div id='dpe' class='w'>
+          <h2>Performance énergétique des logements</h2>
+          <div id='dpe1'>
+            <p><b id="logements"></b>Logements (données Insee)</p>
+            <p><b id="logementsDPE"></b>Logements avec DPE</p>
+            <p class='source'>Données publiées par <a href='https://www.data.gouv.fr/fr/datasets/base-des-diagnostics-de-performance-energetique-dpe/'>ADEME</a></p>
+          </div>
+          <div id='dpe2'>
+            <div id="dpeMoyenne"></div>
+          </div>
+          <div id='dpe3'>
+            <p><b id="dpeAnnee"></b>Année moyenne de construction </p>
+            <p><b id="dpeSurface"></b>Surface moyenne en m²</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="consommationW">
+        <div id="consommation" class='w'>
+        <h2>Quelle est la consommation d'énergie ?</h2>
+        <h3>Consommation totale de gaz et d'électricité en 2016</h3>
+        <dl id="consoTotaleBig">
+          <dt id="consoTotale" class="xxxl latoBlack"></dt>
+          <dd id="consoTotaleInfo"><span class="l">MWh</span><br><span class="m ttu">(éléctricité + gaz) </span></dd>
+          <dd id="consoTotaleEvo"></dd>
+        </dl>
+
+        <h3>Participation de chaque secteur à la consommation totale</h3>
+        <div class="eg">
+
+          <div class="e">
+            <img id="icon_electricite" class="conso_icon" src="img/electricite.png">
+            <h3>Electricité</h3>
+            <span id="consoTotaleE" class="latoBlack"></span> <span class="m">MWh</span><br>
+            <span class="ttu xs">Consommation 2016</span>
+            <p class='consoSecteurs'>Secteurs participant à la consommation totale</p>
+            <div id="secteursE" class="svg-container"></div>
+          </div>
+
+          <div class="g">
+            <img id="icon_gaz" class="conso_icon" src="img/gaz.png">
+            <h3>Gaz</h3>
+            <span id="consoTotaleG" class="latoBlack"></span> <span class="m">MWh</span><br>
+            <span class="ttu xs">Consommation 2016</span>
+            <p class='consoSecteurs'>Secteurs participant à la consommation totale</p>
+            <div id="secteursG" class="svg-container"></div>
+          </div>
+        </div> <!-- eg -->
+
+        <h3 class="center mb0">Comment évolue cette consommation ? (survolez le graphique)</h3>
+        <div class="svg-container-stream">
+          <div id="streamChart"></div>
+        </div>
+        <div id="streamLegend">
+          <ul id="streamLegendE">
+            <li id='ete'>Electricité - Tertiaire</li>
+            <li id='ere'>Electricité - Residentiel</li>
+            <li id='ein'>Electricité - Industrie</li>
+            <li id='eic'>Electricité - Inconu</li>
+            <li id='eag'>Electricité - Agriculture</li>
+          </ul>
+          <ul id="streamLegendG">
+            <li id='gte'>Gaz - Tertiaire</li>
+            <li id='gre'>Gaz - Residentiel</li>
+            <li id='gin'>Gaz - Industrie</li>
+            <li id='gic'>Gaz - Inconu</li>
+            <li id='gag'>Gaz - Agriculture</li>
+          </ul>
+        </div>
+
+        <p class='source'>Données publiées par <a href='http://www.statistiques.developpement-durable.gouv.fr/energie-climat/r/toutes-energies-donnees-locales-denergie-2.html'>statistiques.developpement-durable.gouv.fr</a></p>
+      </div><!-- consommation -->
+        <div id="chaleurFroid" class='w'>
+          <h2>Réseau chaleur froid</h2>
+          <div id="chaleurFroidData"></div>
+          <p class='source'>Données publiées par <a href='http://www.statistiques.developpement-durable.gouv.fr/energie-climat/r/toutes-energies-donnees-locales-denergie-2.html'>statistiques.developpement-durable.gouv.fr</a></p>
+        </div>
+
+      </div><!-- consommationW -->
+
+
+
+      <div id="airW">
+      <div id="airDiv" class='w'>
+        <img id="nubes_polluants" src="img/nubes_polluants.png">
+        <h2>Quelle est la qualité de l'air ?</h2>
+        <h3>L'air de la commune</h3>
+        <p>Polluants présents dans l'air de la commune et ses effets potentiels sur la santé&nbsp;:</p>
+        <ul id="airCommuneA">
+          <li id='no2' title="Effets sur la santé : Risque de développement de bronchites chroniques chez les sujets asthmatiques">
+            <span class='airPolluant'>NO2</span>
+            <span class='airValue' id="no2Val">-</span>
+            <span class='airUnite'>µg/m3</span>
+            <div>
+              soit
+              <span class='airPourcentageW'>
+                <span class='airPourcentageBg'></span>
+                <span class='airPourcentageVal'></span>
+              </span>
+              du valeur guide de l’OMS : <b>40 µ/m3</b>
+              <u>Effets sur la santé</u>
+              Risque de développement de bronchites chroniques chez les sujets asthmatiques
+            </div>
+          </li>
+          <li id="o3" title="Effets sur la santé : Peut induire des difficultés respiratoires, asthme. Risque de perturbation du fonctionnement des poumons">
+            <span class='airPolluant'><i id='miniCloud2' class="miniCloud fas fa-cloud"></i> O3</span>
+            <span class='airValue' id="o3Val">-</span>
+            <span class='airUnite'>µg/m3</span>
+            <div>
+              soit
+              <span class='airPourcentageW'>
+                <span class='airPourcentageBg'></span>
+                <span class='airPourcentageVal'></span>
+              </span>
+              du valeur guide de l’OMS : <b>100 µ/m3</b>
+              <u>Effets sur la santé</u>
+              Peut induire des difficultés respiratoires, asthme. Risque de perturbation du fonctionnement des poumons
+            </div>
+          </li>
+        <!-- </ul>
+        <ul id="airCommuneB"> -->
+          <li id="pm10" title="Effets sur la santé : Risques de développement de maladies cardio-vasculaires et respiratoires">
+            <span class='airPolluant'>PM10</span>
+            <span class='airValue' id="pm10Val">-</span>
+            <span class='airUnite'>µg/m3</span>
+            <div>
+              soit
+            <span class='airPourcentageW'>
+              <span class='airPourcentageBg'></span>
+              <span class='airPourcentageVal'></span>
+            </span>
+            du valeur guide de l’OMS : <b>50 µ/m3</b>
+              <u>Effets sur la santé</u>
+              Risques de développement de maladies cardio-vasculaires et respiratoires
+            </div>
+          </li>
+          <li id="pm25" title="Effets sur la santé : Risques de développement de maladies cardio-vasculaires et respiratoires">
+            <span class='airPolluant'><i id='miniCloud4' class="miniCloud fas fa-cloud"></i> PM2.5</span>
+            <span class='airValue' id="pm25Val">-</span>
+            <span class='airUnite'>µg/m3</span>
+            <div>
+              soit
+            <span class='airPourcentageW'>
+              <span class='airPourcentageBg'></span>
+              <span class='airPourcentageVal'></span>
+            </span>
+            du valeur guide de l’OMS : <b>25 µ/m3</b>
+            <u>Effets sur la santé</u>
+            Risques de développement de maladies cardio-vasculaires et respiratoires
+          </div>
+        </li>
+        </ul>
+         <p class="source">Données issues de la plateforme nationale de prévision de la qualité de l’air www.prevair.org , 21-09-2018</p>
+
+        <h3>L'air du département</h3>
+        <p>Polluants émis par les établissements dans l'air du département&nbsp;:</p>
+
+        <p id="etabBoutons">
+          <button id='etabPolluants'>Polluants (hors CO2)</button>
+          <button id='etabCO2'>CO2</button>
+          <button id='etabEtabs'>Etablissements</button>
+        </p>
+
+        <div id="etab">
+          <div id="etabInfo"></div>
+          <div id="etabBubbles">
+            <p>Géorisques n'a pas recensé des établissements polluants dans cette commune.</p>
+          </div>
+        </div>
+        <p class="source">Données issues du site georisques.gouv.fr, site du réseau developpement-durable.gouv.fr</p>
+      </div>
+    </div><!-- air -->
+
+
+    <div id="enrW">
+      <div id="enr" class="w">
+        <img id="enr_soleil" src="img/soleil.png">
+        <h2 id="enrH2-1">Quel est le potentiel des énergies renouvelables à <span class="libelle_commune"></span>&nbsp;?</h2>
+
+        <div class="imgTxt">
+          <img src="img/eoliennes.png">
+          <h3>Les éoliennes</h3>
+          <p>Vitesse moyenne du vent dans la région : <span id="vent"></span> km/h</p>
+          <p>Pour produire de l'énergie <b>une éolienne</b> a besoin de vent qui souffle au moins à  10 km/h. <b>Une girouette</b>, peut produire de l'énergie avec 8 km/h de vent.</p>
+        </div>
+
+        <div class="imgTxt">
+          <img src="img/panneaux.png">
+          <h3>Les panneaux solaires</h3>
+          <p>Rayonnement solaire moyen régional : <span id="rayonnement"></span> Wh/m²</p>
+          <p>Quelle serait la production électrique si <b id="enr_commune"></b> comptait avec un seul m² de paneaux solaires par menage ? Et avec 3, 5 ou 8 m²&nbsp;?</p>
+        </div>
+        <!-- <h2>Calculette du potentiel solaire :</h2> -->
+        <p><b>Modifiez</b> le nombre de m² de la calculette ci-dessous pour découvrir quelle partie de la consommation électrique serait couverte par la production des panneaux solaires.</p>
+
+        <div id='calculette_solaire'>
+          <h3 id="titre">Calculette du potentiel solaire</h3>
+          <p>Le secteur résidentiel <span class="libelle_commune"></span><br>consomme <span id="enr_conso_electrique" class='marqueur'></span> MWh/an d'électricité.</p>
+
+          <p>Avec <input id="enr_m2" type="text" value="1">
+          <b id="calcul_m2">m² de panneaux solaires par ménage</b><br>la commune produirait
+          <span id="calcul_solaire" class='marqueur'></span> MWh/an.</p>
+
+          <p>Soit <span id="enr_percentage" class='marqueur'></span>% de la consommation actuelle.</p>
+
+          <div id="economie_co2_w">
+            <h3>Economies de CO2</h3>
+            <p>De plus, générer cette électricité avec de l'énergie solaire aurait évité le rejet de <span id="economie_co2" class='marqueur'></span> kg de CO2 par an dans l'atmosphère <sup>(1)</sup>.</p>
+          </div>
+        </div>
+
+        <p>Pour vous donner une idée de ce que cela répresente, l'installation moyenne de paneaux solaires pour particuliers compte avec 19m² environ.</p>
+        <p><sup>(1)</sup>Eléments de calcul : facteur d'émission du kWh du solaire PV (photovoltaique) : 48g CO2/kWh, facteur d'émission eqCO2/kWh moyen en France : 62g. Source : <a style='color:#fff' href='https://www.edf.fr/sites/default/files/contrib/groupe-edf/responsable-et-engage/rapports-et-indicateurs/emissions-mensuelles-de-co-sub-2-sub/edfgroup_emissions-co2_evite_20170730_vf.pdf'>EDF</a></p>
+        <p class="source"><a  hre="https://opendata.reseaux-energies.fr/explore/dataset/rayonnement-solaire-vitesse-vent-tri-horaires-regionaux/?disjunctive.region">Données publiées par reseaux-energies.fr</a></p>
+        <p id='reExplorer'><a href='#body'>Explorer les données d'une autre commune ?</a></p>
+      </div>
+    </div>
+
+        </div>
+    <!-- <p id="apropos">A propos</p> -->
+
+  </main>
+  <script src="js/d3.v3.min.js"></script>
+  <script src="js/fonctions-d3js-v3.js"></script>
+  <script src="js/sankey.v3-2.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,605 @@
+@charset "UTF-8";
+
+/*
+  tirop.com
+
+    Credits:
+    -------------------------------------------
+    html5boilerplate.com/
+    yui.yahooapis.com/2.8.1/build/base/base.css
+    camendesign.com/design/
+    praegnanz.de/weblog/htmlcssjs-kickstart
+    html5doctor.com/html-5-reset-stylesheet/
+    -------------------------------------------
+
+    Victor
+    Aout 2018
+
+    -------------------------------------------
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video
+{ margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; }
+
+blockquote, q       { quotes:none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content:''; content:none; }
+ins     { background-color:#ff9; color:#000; text-decoration:none; }
+mark    { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+del     { text-decoration: line-through; }
+abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
+/* tables still need cellspacing="0" in the markup */
+table   { border-collapse:collapse; border-spacing:0; }
+hr      { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+input, select { vertical-align:middle; }
+select { padding: 5px;font-size: 1rem;}
+pre, code, kbd, samp { font-family: monospace, sans-serif; }
+abbr, article, aside, audio, bdi, canvas, data, datalist, details,
+footer, header, hgroup, mark, meter, nav, output,
+progress, section, subline, summary, time, video { display: block; }
+figcaption, figure { display: inline; }
+
+/*
+ *  Polices
+ * ------------ */
+
+/* @font-face
+{
+    font-family: "Aller light";
+    src: url("fonts/Aller_Lt.ttf") format("truetype");
+}
+@font-face
+{
+    font-family: "Aller";
+    src: url("fonts/Aller_Rg.ttf") format("truetype");
+} */
+
+/*
+@font-face
+{
+  font-family: "Lato";
+  src: url("fonts/Lato-Medium.ttf") format("truetype");
+}
+@font-face
+{
+  font-family: "Lato Light";
+  src: url("fonts/Lato-Light.ttf") format("truetype");
+}
+@font-face
+{
+  font-family: 'Quattrocento Sans';
+  src: url("fonts/Lato-Black.ttf") format("truetype");
+  color: #300a2b;
+} */
+
+
+h1, h2, h3, h4, p, b, i, u, li, dd, dt, table {
+  font:normal 1.2rem/160% "Noto Sans", Lato, Arial, sans-serif;
+  text-rendering: optimizeLegibility; }
+h1 { font: normal 2rem "Noto Sans", Arial, sans-serif; text-align: center;color: #f44336 ; font-weight: bold; }
+
+/* .home { color:#fff; background: #f44336 url(../img/home.png) 50% 0% no-repeat; text-shadow: 2px 2px 5px #300a2b; padding: 2rem 1rem ;} */
+.home { margin-bottom: 2rem; color: #300a2b; }/*background: #2196F3 url(../img/enr2.png) 50% -20% no-repeat;*/ /* text-shadow: 2px 2px 5px #300a2b; */ /*padding: 2rem 1rem;}*/
+/* h1.resultat { color:#fff; background: #f44336 url(../img/home.png) 50% 100% no-repeat; text-shadow: 2px 2px 5px #300a2b;/* /*padding: 4rem 1rem 350px;*/ /*line-height: 700px; font-size: 4rem;}
+h1 resultat span { color:#fff; } */
+
+h2 { font-family: 'Quattrocento Sans', Arial, sans-serif; font-size: 1.8rem; letter-spacing: -1px; border-bottom: 1px solid #300a2b; margin: 0 0 2rem; padding: 0 0 .5rem; text-align: center; }
+h3 { font-family: "Noto Sans"; font-size: 1.4rem; font-weight: normal; text-transform: none;  padding: .5rem .2rem 1rem; letter-spacing: 0px; text-align: center; }
+
+h2 + h3 { padding: 0; /*margin: -.7rem 0 4rem;*/ margin: 3rem 0 0; }
+h4      {font:normal 1.4rem  "Noto Sans", Arial, sans-serif; margin: 1rem 0 1.2rem;}
+#h1 { margin: 1rem 0 -.4rem; color: #f44336 ;}
+p       { margin: .5rem 0 .7rem;  }
+ul, ol  { margin: .3rem 0 .3rem 2rem; }
+ol      { list-style-position: inside; }
+i       {  }
+b { font-weight: bold; }
+
+/*
+dt      { margin: 2rem 0 .5rem; padding: .5rem 0 .5rem .5rem ; color:#21252B;}
+dt a    {font-size: 1.4rem; color:#21252B; text-decoration: none;}
+*/
+
+a           {color:#2196f3; cursor:pointer; }
+a:link      {color:#2196f3}
+a:visited   {color:#78B3FF}
+dt a:visited{color:#21252B}
+a:hover     {color:#673ab7}
+a:active    {color:#ccc}
+pre         {overflow: scroll; margin: 1rem 4%; padding: 2rem; color: rgb(152, 207, 255);}
+
+/*
+.mk     { color: #69D2E7 }
+.data   { color: #3465a4 }
+.ux     { color: #FE4365 }
+.ir     { color: #FA6900 }
+.web    { color: #fce94f }
+*/
+
+/*
+ *  Structure
+ * ------------ */
+
+html    { font-size: 1rem; min-height: 100%; overflow-y: scroll;  background: #f8f8f8; }
+body    { min-height: 100% ;/* ! */ ; background: transparent url(../img/fond.png) 50% 60px no-repeat; font-family: "Noto Sans", Arial, sans-serif; text-align: justify;
+margin-top: -20px; padding-top: 20px;}
+main    {/* max-width: 780px;*/ height: auto; margin: 0 auto;  }
+.w      {  max-width: 780px; margin: 0 auto; padding: 0 4%; }
+
+
+/*
+  logo
+------------- */
+#logoW { background: #300a2b; font-size: .9rem; height: 1.5rem;
+  font-family: "Lato"; padding: 10px; text-transform: uppercase;
+  text-align: center; margin: 0; position: fixed; width: 100%; z-index: 10000;
+  box-shadow: 0 0 12px #300a2b; top: 0; overflow: hidden; }
+#menu { max-width: 780px; margin: 0 auto; position: relative; text-align: center;}
+#print { text-align: right; position: absolute; right: 0; display: none;
+    background: #d04343; color: #fff; text-transform: none;
+    padding: 3px 6px; border-radius: 3px; border: 1px solid #ea8e8e;
+}
+#logoW p { padding: 0; margin: 0; }
+#logo { color: #fff; text-transform: uppercase; line-height: 1.8rem;     font-size: 1rem; font-family: 'Noto Sans';}
+#logoW a { text-decoration: none; }
+#apropos {float: right; text-transform: none; }
+#baseline { font-size: .9rem; }
+
+/*
+  recherche
+------------- */
+#rechercheW { /*background: *//*#F44336*/ /*#fff9c4 url('../img/recherche.png');*/ padding-bottom: 2rem; margin-top: 2.5rem; }
+#recherche { position: relative; line-height: 100%; z-index: 100 ; }
+#recherche p { margin: 0; /*text-align: center;*/ }
+#barreRecherche {padding:7px 2%; width: 96%; font-size: .9rem;
+  border: 1px solid #b71c1c; }
+
+#resultatsRecherche {position: absolute; top: 68px;
+  margin: -15px 0 0px; border: 1px solid #ccc; border-top: none;
+  padding:5px 10px; width: calc(91% - 15px); display: none;
+  max-height: 200px; overflow-y: scroll; background: #fff;z-index: 1000; text-align: left; }
+#resultatsRecherche p { padding: 5px 5px}
+#resultatsRecherche p:hover { cursor: pointer; background: #05f; color: white; }
+small {font-size: .8rem}
+#nbResultats { font: normal 0.8rem Arial, sans-serif; color: #fff; padding-left: 5px;}
+#nbResultats::before, #nbResultats::after { content: none; }
+#comment, .marqueur { background: rgba(255, 255, 0, 0.8); }
+#resultatsRecherche #pasResultats:hover {background: #fff; cursor: default;}
+
+
+/*
+  titre
+------------------- */
+#titre-1 { height: 171px; background: url('../img/titre-1-s.png') 50% 0 no-repeat; }
+#titre-2 { height: 232px; background: url('../img/titre-2-s.png') 50% 0 no-repeat; }
+h1.resultat { margin : 2rem ; color: #300a2b; font-family: 'Quattrocento Sans';}
+
+#questions { max-width: 100%; margin-top: 30px; }
+#questionCommune { top: 108px; }
+#questionDPE { top: -50px; right: 0px; }
+.question { position: absolute; }
+.questionG { margin: 0 0 0 20px; }
+.questionD { margin: 0 20px 0 0 ; }
+
+/*
+  info
+------------------- */
+#infoW h2 { text-align: left;}
+
+#questions { border: 1px solid #0000; }
+#questions p { font-size: 2rem; text-align: left; }
+#questions #qSecteurs, #questions #qAir { text-align: right; }
+#questions #qElec { font-weight: bold: }
+#questions #qGaz { font-style: italic; }
+
+
+/*
+  chiffresCles
+-------------------- */
+#libelle3rem { font-size: 3rem; font-family: 'Quattrocento Sans'; text-align: center;
+    margin: 6rem 0 0;}
+#deptRegionEPCI { text-align: center; text-transform: uppercase; margin: 0 0 20px; }
+.presentation { padding: 20px; font-size: 1rem; background: #FFF9C4; border: 1px solid #fff176; }
+.presentation b { font-size: 1rem; }
+#chiffresCles p { margin: 0 ; padding: 0; line-height: 120%; }
+.chiffres b { font-size: 2.1rem;  font-family: 'Quattrocento Sans'; display:inline-block; width: 110px; text-align: right; padding-right: 10px; }
+#chiffresCles .source { padding: 40px 0 20px}
+
+.xxxl { font-size: 5rem;  }
+.xxl { font-size: 4rem;  }
+.xl { font-size: 3rem;  }
+.l { font-size: 1.6rem;  }
+.m { font-size: 1.2rem;  }
+.s { font-size: 1rem;  }
+.xs { font-size: .8rem;  }
+
+.ttu {text-transform: uppercase;}
+.mt40 {margin-top: 40px; }
+.latoBlack {font-family: 'Quattrocento Sans'; }
+
+
+/*
+dpe
+-------------------- */
+#dpeW { background: #300a2b;}
+#dpe {  zoom: 1; overflow: auto; min-height: 260px;  }
+#dpe h2 { padding-top: 2rem; border-color: #fff; color: #fff; margin: 3rem 0 1rem; text-align: center; }
+#dpe b { display: block; font-size: 1.8rem; padding: 0 0 10px; font-family: 'Quattrocento Sans'; }
+#dpe p { font-size: .9rem; }
+#dpe div { float: left; width: 30%; margin: 0 1%;  padding: 40px 0 0; min-height: 220px;}
+#dpe div, #dpe p, #dpe b { color:#fff; text-align: center; }
+#dpe1 p , #dpe3 p { padding: 20px 0; line-height: 150%; }
+#dpe #dpe2 { width: 28%; padding: 40px 1%; margin-top: 40px; }
+#dpe2 p { color: #300a2b; text-transform: none; font-size: .9rem;}
+#dpe2 #dpeLabel { font-size: 6rem; font-weight: bold; }
+#dpe2 #dpeValue { font-size:1.4rem;}
+#dpe3 {}
+  #dpeW .source { padding: 0; }
+  #dpe span { width: 100%; background: yellow; padding: 10px 20px; }
+  .dpeClassA { background: #339a33;  }
+  .dpeClassB { background: #33cc33;  }
+  .dpeClassC { background: #cf3;  }
+  .dpeClassD { background: #ff0;  }
+  .dpeClassE { background: #fc0;  }
+  .dpeClassF { background: #ff9a33;  }
+  .dpeClassG { background: #ff0000;  }
+
+/* communeDiv
+-------------------- */
+#container { zoom: 1; overflow: auto; }
+#communeW { background: #FDFFFE; padding: 0 0 40px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
+
+/* consommation
+-------------------- */
+#consommationW { background: #FFF9C4; padding: 40px 0;}
+#consommation { }
+#consommation,
+#consommation h2
+#consommation dl {position: relative; z-index: 10;}
+#consommation h2,
+#consommation h3,
+#chaleurFroid h2 { color: #b71c1c; }
+#consommation h2,
+#chaleurFroid h2 { border-color: #b71c1c; }
+.consoSecteurs { text-align: center; font-size: .9rem; margin-top: 25px; margin-bottom: 0; }
+#fire, #plug { float: left; font-size: 120px; padding: 30px 40px 0 0; }
+/* #icon_electricite, #icon_gaz { display: block; text-align: center; } */
+.conso_icon { float: none; padding: 0; }
+#fire { color: #ef5350;  }
+#plug { color: #FF9801; }
+
+#consoTotaleBig {margin: 0 auto 50px; text-align: center; }
+#consoTotaleBig h3 {margin: 0 ; padding: 0 ; text-align: center; }
+#consoTotale {display: inline-block;}
+#consoTotaleInfo {display: inline-block; padding-left: 10px; text-align: center;}
+
+.eg {zoom: 1; overflow: auto; font-size: 1.8rem;  }
+.e, .g {width: 100%; line-height: 120%; padding: 2%; position: relative;  z-index: 100 ; text-align: center; }
+.e { float: none; }
+.g { float: none; }
+.e h3, .g h3 { margin-bottom: 0;  text-align: center;}
+
+#consoTotaleEvo .axis { font: .8rem sans-serif; }
+#consoTotaleEvo .axis path,
+#consoTotaleEvo .axis line { fill: none; stroke: #7e7e7e;
+  shape-rendering: crispEdges; }
+
+/* evolution consommation - stream
+-------------------------------------- */
+/*  https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
+
+#streamChart { position: relative; display: inline-block;  width: 100%; max-width: 780px; /* mais non ! */ padding-bottom: 52%; /* aspect ratio */ vertical-align: top; overflow: hidden; z-index: 10; }
+#streamChart .axis path, #streamChart .axis line { fill: none; stroke: #7e7e7e; stroke-width: 2px; shape-rendering: crispEdges; }
+#streamChart text { font-size: .8rem; }
+
+#streamTip { position: absolute; z-index: 20; visibility: hidden; top: 20px; left: 0px; width: 100%;  }
+
+#consoToolTip { padding: 0; margin-top: -20px; font-size: .9rem;  text-align: center; width: 100%; }
+
+
+#streamLegend { zoom:1; overflow: auto; padding: 1rem 0; margin: 5px 0 0 8px;}
+#streamLegendE, #streamLegendG { display: inline-block; text-align: center; width: 42%; margin: 0 2% 0 0;}
+#streamLegendE { width: 50%; }
+
+#streamLegendE li,
+#streamLegendG li { margin-left: 0; padding-left: 15px; list-style: none; font-size: .8rem; text-align: left; }
+#ete { border-left: 15px solid #FDD49E }
+#ere { border-left: 15px solid #FDBB84 }
+#ein { border-left: 15px solid #FC8D59 }
+#eic { border-left: 15px solid #E34A33 }
+#eag { border-left: 15px solid #B30000 }
+#gte { border-left: 15px solid #D0D1E6 }
+#gre { border-left: 15px solid #A6BDDB }
+#gin { border-left: 15px solid #74A9CF }
+#gic { border-left: 15px solid #2B8CBE }
+#gag { border-left: 15px solid #045A8D }
+
+
+/* air de la commune
+-------------------------------------- */
+#airW {position: relative; z-index: 100;
+ background: #e0e0e0 url(../img/polluants.png) 100% 100% no-repeat; padding: 100px 0 160px; }
+#nubes_polluants {position: absolute; top: 20px; left: 10px; }
+#airDiv h2,
+#airDiv h3,
+#airDiv #airCommuneA
+ {position: relative; z-index: 10;}
+#airW p { text-align: center; }
+#cloud, #cloud2 { position: absolute; top: 50px; left: calc(50% - 480px);
+  color: rgba(255,255,255,1); font-size: 150px;}
+#cloud2 {font-size: 75px; top: 300; left: 10px; }
+#airDiv h3 { margin-bottom: 1rem; }
+#airCommuneA, #airCommuneB {/* width: 410px;*/ margin: 0 auto; overflow: auto;
+  zoom: 1; }
+#airCommuneA {   }
+
+#airDiv li { width: 47.5%; float: left; list-style: none; padding: 0;
+  background: rgba(255,255,255,.2); margin: 1%;}
+#airDiv li:hover { background: rgba(255,255,255,.4); }
+
+.airPolluant { position: relative z-index: 100 ; display: block;     font-family: 'Noto Sans'; font-weight: bold; text-align: center; letter-spacing: 1px; background: #888a85; color: #fff; margin-bottom: 5px; }
+
+#airDiv li:hover .airPolluant {  background: #777; }
+
+.miniCloud { position: absolute; font-size:20px; color: rgba(255,255,255,.8); }
+#miniCloud1 { top: -8px; left: 10px; }
+#miniCloud2 { top: 18px; left: 10px; }
+#miniCloud3 { top: 8px; right: 10px; }
+#miniCloud4 { top: -8px; right: 10px; }
+
+.airValue { display: block; font-family: 'Quattrocento Sans'; font-size: 3rem; text-align: center; padding: 1rem 0; margin: 1rem 0 0; color: #0d47a1; }
+
+.airUnite { display: block; font-style: normal; text-align: center; color: #0d47a1;  }
+#airDiv li div { display: block; font-style: normal; text-align: center; background: #fff; font-size: .8rem; margin: 20px 0 0; min-height: 240px; padding: 10px; }
+#airDiv li span.guide {text-align: center; font-weight: bold; font-size: .9rem; background: #e3f2fd; margin: 0; padding: 0; }
+#airDiv li u { text-decoration: none; font-weight: bold; display: block; font-size: .9rem; text-align: center;}
+
+.airPourcentageW { width: 100%; border: 1px solid #f44336; height: 26px; display: block; position: relative; z-index: 100 ;  }
+.airPourcentageW b { text-align: center;  height: 26px; }
+.airPourcentageBg {background: #f44336; width:0; height: 26px; display: block;}
+.airPourcentageVal {position: absolute; top:0; left: 0; text-align: center; width: 100%; color: #111; }
+#o3 {}
+#pm10 {}
+#pm25 {}
+
+#consommation .source,
+#chaleurFroid .source { color:#e57373; }
+/* #airW .source { background: none;  } */
+
+/* établissements polluants - bubble
+-------------------------------------- */
+#etab { zoom: 1; overflow: auto ; min-height: 300px; background: #fff; }
+#etabBubbles { max-width: 580px; margin: 0 auto; }
+#etabBubbles .svg-container { max-width: 580px; margin: 0 auto;}
+.etabW100#etab #etabBubbles { max-width: 100%; }
+#etabInfo { font-size: 1rem; background: #888a85; color: #eee; padding: 5px 10px; border-radius: 2px;  margin-bottom: 0px; min-height: 54px;}
+#polluant { color: #fff; font-size: 1rem;}
+#etab .node text { font-size: .8rem;}
+
+#etabBoutons { text-align: center; }
+#etabBoutons button { background: #bf2c2c; border-radius: 2px;  border: 1px solid #961b12; color: #fff; padding: 10px 20px; }
+#etabBoutons .active { background: #F44336; color: #fff; border: 1px solid #bf2c2c }
+#etabEtabsTable { font-size: .9rem; color: #333; background: #fff; }
+#etabEtabsTable th { background: #ef5350; color: #fff; text-align: center; padding: 10px;}
+#etabEtabsTable td { padding: 5px; text-align: center;}
+#etabEtabsTable tr:nth-child(even) { background-color: #ffcdd2; }
+
+
+
+/* EnR
+-------------*/
+#enrW { position: relative;  z-index: 100 ; background: #21baff url(../img/enr.png) no-repeat 50% 100%; padding-bottom: 430px; color: #fff; }
+#enrW h2 { margin-top: 0 ; padding-top: 5rem; color: #fff; border-color: #fff; position: relative; z-index: 100; text-align: center; }
+#enrW h2 span { font-size: inherit; }
+#enrW h2.mt { padding-top: 8rem; }
+#enrW h3 { margin: 4rem 0 .5rem; }
+#enrW p, #enrW b, #enrW h3 { color: #fff; }
+#enrW p#calculette_solaire { color: #300a2b; }
+#enrW #calculette_solaire span, #enrW #calculette_solaire b, #enrW input { color: #300a2b; }
+#enrW b { font-weight: bold; font-size: 1.3rem;}
+#enrW .source a { color: #fff; }
+#enrW span { /* color: #fff; font-family: "Lato"*/ font-weight: bold; /*font-family: 'Quattrocento Sans'; font-size: 1.4rem;*/}
+#enr_m2 { text-align: center; font-size: 2rem; width: 4rem; background: #fff; color: #3f51b5; font-family: 'Quattrocento Sans'; outline: none;  border: 1px dashed #3f51b5; }
+#enr_soleil { /*position : absolute; top: 20px; left: 20px; width: 140px; z-index: 1;*/ margin: 0 auto -20px; padding: 40px 0 0; }
+#calculette_solaire { /*text-transform: uppercase;*/ background: #fff9c4 /* url(../img/calculette.png) 95% 130% no-repeat*/; box-shadow: 0 0px 13px #166a90;
+    /*text-align: left;*/ padding: 0;  position: relative;  z-index: 100 ; /*border: 5px solid #ffe680;*/ margin: 30px 0; color: #300a2b; }
+
+#calculette_solaire h3,
+#calculette_solaire p { color: #310b2c; text-align: center; }
+#calculette_solaire h3 {  margin: 0; padding: 0;  }
+#calculette_solaire h3#titre { margin: 0; padding: 2rem 0 70px; background: #310b2c url(../img/calculette-2.png) 98% 76px no-repeat; color: #fff; }
+#calculette_solaire p { padding: 10px 30px; }
+
+#economie_co2_w { background: rgba(252, 233, 80, 0.4) url(../img/cochon-co2.png) 50% 20px no-repeat; padding: 175px 30px 20px 30px;  }
+#conchonCo2 { float: left; margin: 0 20px 20px 0; }
+
+
+#fleche { position: absolute; display: none; }
+/* #enr_conso_electrique { font-size: 2.1rem; font-family: 'Quattrocento Sans';} */
+#enrW #calcul_m2 { /*display: block; margin: 10px auto 20px; text-align: center; */font-size: 1.2rem; }
+#enrW #modifiez_ceci { text-align: center; font-size: 1.2rem; margin-bottom: 20px; display: block; font-family: 'Noto Sans'}
+
+#enrW #reExplorer { text-align: center; background: #fff; margin: 0 auto; display: block;
+    width: 30rem; border-radius: 10px; color: #300a2b; text-decoration: none;
+    padding: 5px 10px; text-transform: uppercase; font-size: 1rem; max-width: 90%; }
+#enrW #reExplorer:hover { background: #ffe680; }
+#enrW #reExplorer a { color: #300a2b; text-decoration: none;    font-size: .9rem; }
+.imgTxt {zoom: 1 overflow: auto; }
+.imgTxt img { float: left;}
+.imgTxt img { padding: 80px 40px 20px 0; max-width: 120px; }
+
+
+/*
+responsive
+-------------
+< 840 : preparer tablette
+
+640 x 360
+
+360 x 640
+vert #4CAF50
+*/
+@media screen and (min-width: 640px)
+{
+  .home { color: #fff; }
+  h1 { text-align: center; /*padding: 2rem;*/ }
+  h2 { font-size: 2.0rem; text-transform: uppercase; /* text-align: left; */  }
+  h3 { /*margin: 1rem 0 1.2rem; */ font-family: 'Quattrocento Sans'; font-size: 1.5rem; }
+  #consoTotaleBig h3 {margin: 0 ; padding: 0 ;  }
+
+  #barreRecherche { font-size: 1.2rem; }
+
+  /* titre résultats */
+  #titre-1 { height: 174px; background: url('../img/titre-1.png') 50% 0 no-repeat; }
+  #titre-2 { height: 222px; background: url('../img/titre-2-m.png') 50% 0 no-repeat; }
+  h1.resultat { margin : 0;}
+
+  /* infos */
+  .chiffres b { /*font-size: 3rem; */width: 150px; }
+
+  /* dpe */
+  #dpe p { font-size: 1rem; }
+  #dpe b { font-size: 3rem; }
+  #dpe2 p { text-transform: uppercase; font-size: .8rem;}
+
+  /* consommation */
+  .l { font-size: 2rem;  }
+  #consoTotaleInfo { text-align: center; }
+  .eg { font-size: 1.8rem;  }
+  .e, .g {width: 45%; text-align: left; }
+  .e { float: left; }
+  .g { float: right; }
+  .e h3, .g h3 {  text-align: left; }
+  /* #icon_electricite, #icon_gaz { display: inline; text-align: left; float: none;  } */
+  .conso_icon { float: left; padding: 30px 40px 0 0; }
+  #consoTotaleInfo {  text-align: left;}
+
+  /* stream */
+  #streamLegend { padding: 1rem 60px; margin: 0;}
+  #consoToolTip { margin-top:0; font: normal 1.2rem "Lato", Arial, sans-serif; }
+
+  /* air */
+  #airDiv li { width: 23%; }
+
+  /* EnR */
+  /* #enr_m2 { display: inline-block; margin: -30px 10px 0 0; } */
+  #enrW h2.mt { padding-top: 8rem; }
+  #fleche { margin-left: -211px; top: -37px; }
+
+}
+
+/* ////////////////////////////////// */
+
+@media screen and (min-width: 840px)
+{
+  .home { margin-bottom: 0; }
+  h1   { font-size: 2.2rem ; text-align: center;}
+  h2 { margin-top: 3rem; }
+
+  /* recherche */
+  #barreRecherche {padding:7px 2%; width: 700px; font-size: 1.2rem;
+    border: 1px solid #3f51b5;
+  }
+
+  #resultatsRecherche { top: 68px; margin: 0 auto; width: 710px; }
+
+  /* Chiffres clés */
+  #chiffresCles { zoom: 1 ; overflow: auto;}
+  #chiffresCles p { float: left; width: 49%; }
+  /* titre résultats */
+  #titre-1 { height: 174px; background: url('../img/titre-1.png') 50% 0 no-repeat; }
+  #titre-2 { height: 222px; background: url('../img/titre-2.png') 50% 0 no-repeat; }
+  #libelle3rem { margin: 4rem 0 0;}
+
+  /* EnR */
+  #enrH2-1 { /*background: url(../img/soleil.png) 0 0 no-repeat; */ text-align: right; }
+  #enr_soleil { top: 40px; width: 160px; }
+  #enrW h2.mt { padding-top: 4rem; }
+  /* #enr_soleil { width: auto; }
+  #enrW span { font-size: 3rem; font-family: 'Quattrocento Sans'}
+  #enr_conso_electrique { font-size: 3rem; }
+  #fleche { margin-left: -201px; top: -47px; } */
+  /* #enrW #calcul_m2 { display: inline; margin-top: 0 ; text-align: left; } */
+  #modifiez_ceci { display: none; }
+  #economie_co2_w { background: rgba(252, 233, 80, 0.4) url(../img/cochon-co2.png) 20px 20px no-repeat; padding: 20px 30px 20px 210px;  }
+  #calculette_solaire h3#titre { margin: 0; padding: 2rem 0; background: #310b2c url(../img/calculette-2.png) 98% 36px no-repeat; color: #fff; }
+
+  .imgTxt {zoom: 1 overflow: auto; }
+  .imgTxt img { float: left;}
+  .imgTxt img { padding: 80px 40px 20px 0; max-width: 170px; }
+
+}
+
+  /* svg
+  ~~~~~~~~~~~~~~~ */
+  .node rect { cursor: move; fill-opacity: .9; shape-rendering: crispEdges;}
+  .node text { pointer-events: none; /*text-shadow: 0 1px 0 #000;*/ font-family: Arial, sans-serif; font-size: 1rem; }
+  @media screen and (max-width: 780px) {.node text {font-size: 1.1rem}}
+  @media screen and (max-width: 640px) {.node text {font-size: 1.2rem}}
+
+  .link { fill: none; stroke-opacity: .7; }
+  .link:hover { stroke-opacity: 1; }
+
+
+  .secteursE_agriculture { stroke: #B30000; }
+  .secteursE_residentiel { stroke: #FDBB84; }
+  .secteursE_industrie { stroke: #FC8D59; }
+  .secteursE_tertiaire { stroke: #FDD49E; }
+  .secteursE_inconu { stroke: #E34A33; }
+
+  .secteursG_agriculture { stroke: #045A8D; }
+  .secteursG_residentiel { stroke: #A6BDDB; }
+  .secteursG_industrie { stroke: #74A9CF; }
+  .secteursG_tertiaire { stroke: #D0D1E6; }
+  .secteursG_inconu { stroke: #A6BDDB; }
+
+  /* svg responsive
+  ~~~~~~~~~~~~~~~~~~~
+  https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
+  .svg-container { display: inline-block; position: relative;  z-index: 100 ; width: 100%; max-width: 780px; /* mais non ! */ padding-bottom: 100%; /* aspect ratio */ vertical-align: top; overflow: hidden; z-index: 10; }
+  .svg-container-stream { display: inline-block; position: relative;  z-index: 100 ; width: 100%; max-width: 780px; /* mais non ! */ padding-bottom: 0%; /* aspect ratio */ vertical-align: top; overflow: hidden; z-index: 10; }
+
+  .svg-content-responsive { display: inline-block; position: absolute; top: 10px; left: 0;}
+
+  /* buttons
+  ~~~~~~~~~~~~~~~*/
+  button { border: none; padding: 5px 10px; background: transparent; cursor: pointer; font-size: 1.1rem; border: 1px solid #5d626b; color: #5d626b;}
+  button.activo { background: #ffffff; color: #21252b;}
+  #types {max-width: 98%; margin: 0 1% 10px; text-transform: uppercase; /*border-bottom: 1px solid #414650;*/ color: #5d626b; /*background: #252931;*/ padding: 2px 10px; text-shadow: 0 1px 0 #1c1f25; }
+  @media screen and (max-width: 780px) { #types {font-size: 0.8rem; } }
+  #boutons { text-align: center; padding: 0px 0 10px; /* background: #252931; */ max-width: 98%; margin: 0;}
+
+/* Source */
+.source { background: none; font-size: 1rem; margin: 1.5rem 0 4rem ;
+  padding: .2rem .8rem; /*border-bottom: 1px dotted #ccc;*/ text-align: center; }
+.source a { font-size: .9rem; }
+
+
+
+  /* utilidades
+  ~~~~~~~~~~~~~~~ */
+  .fright { display: block; float: right; }
+  .noBg { background: transparent;}
+  .mb0 { margin-bottom: 0;}
+  .mb40 { margin-bottom: 40px;}
+  .mt40 { margin-top: 40px;}
+  .center {text-align: center;}
+  .upper {text-transform: uppercase;}
+  .spacing { letter-spacing: 1px; }
+
+h1 { font-family: 'Noto Sans'; text-transform: none; font-weight: bold;
+    text-align: center;}
+h2 { font-family: 'Quattrocento Sans'; }
+h3 { font-weight: bold; }
+h3, p { font-family: 'Noto Sans'; }
