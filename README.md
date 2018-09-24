@@ -6,7 +6,7 @@ Territoires et énergies est un outil basé sur le web qui permet d'explorer les
 
 La principale ambition de cet outil est d'attirer l'attention sur l'importance des thématiques air et énergie. Pour cela, on structure de façon simple un nombre relativement important de données pour dresser le portrait de chacune des 371 communes.
 
-Éventuellement, les informations présentées peuvent servir de base pour initier la démarche PCAE de la commune visionnée.
+Éventuellement, les informations présentées peuvent servir de base pour initier la démarche PCAET de la commune visionnée.
 
 Afin d'impliquer davantage l'internaute, une calculette l'invite à vérifier quelle serait la production d'électricité de la commune en cours, si chaque ménage disposait un nombre X de m² de panneaux solaires. La calculette propose le pourcentage de l'électricité produite de cette façon par rapport au total consommé, ainsi que la quantité de CO2 économisée.
 
