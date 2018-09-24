@@ -4,6 +4,8 @@
 
 Territoires et énergies est un outil basé sur le web qui permet d'explorer les données air et énergie des communes ayant entre 20 000 et 50 000 habitants, soit 371 collectivités.
 
+Vidéo de présentation : http://tirop.com/energie/video/
+
 ## Objectif
 
 La principale ambition de cet outil est d'attirer l'attention sur l'importance des thématiques air et énergie. Pour cela, on structure de façon simple un nombre relativement important de données pour dresser le portrait de chacune des 371 communes.
