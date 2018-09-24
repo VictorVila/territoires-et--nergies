@@ -1,5 +1,7 @@
 # Territoires et énergies
 
+![Territoires et énergies](https://raw.githubusercontent.com/VictorVila/territoires-et-energies/master/dataviz/img/titre-1.png)
+
 Territoires et énergies est un outil basé sur le web qui permet d'explorer les données air et énergie des communes ayant entre 20 000 et 50 000 habitants, soit 371 collectivités.
 
 ## Objectif
