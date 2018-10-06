@@ -81,9 +81,14 @@ L'architecture choisie est rapide, modulaire et permet d'étendre éventuellemen
 ### Modularité
 L'outil a été conçu comme un agrégat de différentes blocs d'informations. Chaque bloc consulte la base de données de façon autonome ce qui permet de greffer des nouveaux blocs ou de changer leur ordre sans interférer avec l'existant.
 
+![Structure de Territoires et énergies](https://raw.githubusercontent.com/VictorVila/territoires-et-energies/master/dataviz/img/technique.png)
+
 La page de base embarque tout le code nécessaire à l'application. Quand l'utilisateur réalise une consulte, chaque bloc d'information communique en arrière-plan avec la base de données et charge les données qui lui concernent.
 
 ### Mobile first
+
+![Mobile Territoires et énergies](https://raw.githubusercontent.com/VictorVila/territoires-et-energies/master/dataviz/img/mobile.png)
+
 L'interface a été conçue pour les terminaux mobiles dès le départ, puis, déclinée en versions grande taille. Cette approche assure que l'expérience des utilisateurs mobiles ne soit pas diluée par rapport aux utilisateurs avec des ordinateurs de bureau.
 
 ### Vitesse
@@ -118,7 +123,26 @@ Firefox, Opera, Chrome, Internet Explorer
 
 
 ## Code source
-Les codes sources sont disponibles sur Github : https://github.com/VictorVila/territoires-et-energies,
+Les codes sources sont disponibles sur Github : https://github.com/VictorVila/territoires-et-energies
+
+
+## Prérequis
+* Un hébergement web
+* Une base de données MySQL
+* Un FTP : logiciel de transfert de fichiers
+
+
+## Installation
+Déplacez les fichiers du dossier /dataviz/ vers le serveur web.
+
+Crééez une base de données nommée "energie"
+
+Importez dans cette base de données, le script SQL suivant (220 Mo):
+
+http://tirop.com/energie/bdd/energie.sql
+
+Cet script contient la structure de la base de données et les données.
+
 
 ## Licence
 Creative Commons Paternité-Partage des Conditions Initiales à l'Identique 3.0 non transposé (CC BY-SA 3.0 Unported)
