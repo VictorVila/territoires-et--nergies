@@ -6,7 +6,7 @@ Territoires et énergies est un outil basé sur le web qui permet d'explorer les
 
 Vidéo de présentation : http://tirop.com/energie/video/
 
-** Demo : http://tirop.com/energie/video/ **
+Demo : http://tirop.com/energie/
 
 ## Objectif
 
