@@ -133,15 +133,9 @@ Les codes sources sont disponibles sur Github : https://github.com/VictorVila/te
 
 
 ## Installation
-Déplacez les fichiers du dossier /dataviz/ vers le serveur web.
-
-Crééez une base de données nommée "energie"
-
-Importez dans cette base de données, le script SQL suivant (220 Mo):
-
-http://tirop.com/energie/bdd/energie.sql
-
-Cet script contient la structure de la base de données et les données.
+1. Déplacez les fichiers du dossier /dataviz/ vers le serveur web.
+2. Créez une base de données nommée "energie"
+3. Importez dans cette base de données, le script SQL suivant qui contient la structure de la base de données et les données (220 Mo) : http://tirop.com/energie/bdd/energie.sql 
 
 
 ## Licence
