@@ -6,6 +6,8 @@ Territoires et énergies est un outil basé sur le web qui permet d'explorer les
 
 Vidéo de présentation : http://tirop.com/energie/video/
 
+** Demo : http://tirop.com/energie/video/ **
+
 ## Objectif
 
 La principale ambition de cet outil est d'attirer l'attention sur l'importance des thématiques air et énergie. Pour cela, on structure de façon simple un nombre relativement important de données pour dresser le portrait de chacune des 371 communes.
@@ -135,7 +137,7 @@ Les codes sources sont disponibles sur Github : https://github.com/VictorVila/te
 ## Installation
 1. Déplacez les fichiers du dossier /dataviz/ vers le serveur web.
 2. Créez une base de données nommée "energie"
-3. Importez dans cette base de données, le script SQL suivant qui contient la structure de la base de données et les données (220 Mo) : http://tirop.com/energie/bdd/energie.sql 
+3. Importez dans cette base de données, le script SQL suivant qui contient la structure de la base de données et les données (220 Mo) : http://tirop.com/energie/bdd/energie.sql
 
 
 ## Licence
