@@ -113,7 +113,7 @@ var chercher = function ()
 
     document.querySelector('#info').setAttribute('style', 'display:none');
     if (resultatsArr.length === 1) nbResultats.innerHTML = resultatsArr.length + resultatStr;
-    else nbResultats.innerHTML = resultatsArr.length + resultatsStr; 
+    else nbResultats.innerHTML = resultatsArr.length + resultatsStr;
   }
   else
   {
@@ -569,11 +569,39 @@ var iniPotentielENR = function (codeRegion)
 
 var set_potentiel_solaire = function ()
 {
+  // var m2 = document.querySelector('#enr_m2').value;
+  // var mw = ( enr.menages * m2 * 24 * 365 * enr.rayonnement) / 1000000;
+  // var mw_str = 0;
+  // try { mw_str = _f( parseFloat(mw).toFixed(2) ); } catch (e) { console.log("err", e); mw_str = '-'; }
+  // _s('calcul_solaire', mw_str );
+
+  /*
+    https://photovoltaique-energie.fr/estimer-la-production-photovoltaique.html
+    Calcul par le rendement du panneau (ou de la cellule)
+    E = S * r * H * Cp
+
+    E = énergie produite en Wh
+    S = surface du champ photovoltaïque  (exemple 7.14 m²)
+    r = rendement du module (14 % pour notre exemple)
+    H = ensoleillement/rayonnement sur la surface inclinée en kWh/m²
+    Cp = coefficient de perte (valeur fréquente étant entre 0.75 et 0.8)
+    7,14×0,14×1580×0,74
+  */
+
   var m2 = document.querySelector('#enr_m2').value;
-  var mw = ( enr.menages * m2 * 24 * 365 * enr.rayonnement) / 1000000;
+  // menages * rayonnement h/m2
+  // var mw = ( enr.menages * m2 * 24 * 365 * enr.rayonnement) / 1000000;
+  var S = enr.menages*m2;
+  var r = 0.14;
+  var H = 24*365*enr.rayonnement;
+  var Cp = 0.76;
+
+  var mw = (S * r * H * Cp) / 1000000;
   var mw_str = 0;
-  try { mw_str = _f( parseFloat(mw).toFixed(2) ); } catch (e) { console.log("err", e); mw_str = '-'; }
+  try { mw_str = _f( parseFloat( mw ).toFixed(2) ); } catch (e) { console.log("err", e); mw_str = '-'; }
   _s('calcul_solaire', mw_str );
+
+
 
   /*  set CO2 évité
 
