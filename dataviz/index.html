@@ -5,6 +5,7 @@
   <title>Territoires et énergies</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Quattrocento+Sans:700" rel="stylesheet">
+  <link href="./assets/leaflet/leaflet.css" rel="stylesheet">
   <link href="./css/style.css?i=1231" rel="stylesheet">
 </head>
 <body id="body">
@@ -17,23 +18,23 @@
 
     <div id="rechercheW">
       <div id="recherche" class='w'>
-        <p><q id="nbResultats"></q><br><input id="barreRecherche" value="" placeholder="Tapez ici le nom d'une commune ayant entre 20K et 50K habitants"></p>
+        <p><q id="nbResultats"></q><br><input id="barreRecherche" value="" placeholder="Cherchez une EPCI ou une commune ayant entre 20K et 50K habitants"></p>
         <div id="resultatsRecherche"></div>
       </div>
     </div>
 
     <div id="infoW">
       <div id="info" class='w'>
-        <h1 class='home'>Explorez les données Air et Energie<br>de 371 communes</h1>
+        <h1 class='home'>Explorez les données Air et Energie<br>des EPCI et de 371 communes</h1>
         <div><img id='questions' src='img/titre-1.png'></div>
         <h2>Présentation de l'outil</h2>
-        <p>Cet outil permet à tout public, d'explorer la façon dont <b>chacune des 371 communes ayant entre 20K et 50K habitants</b> consomment de l'énergie et les effets sur qualité de l'air de cette consommation.</p>
+        <p>Cet outil permet à tout public, d'explorer la façon dont <b>les EPCI et les communes (ayant entre 20K et 50K habitants)</b> consomment de l'énergie et les effets sur qualité de l'air de cette consommation.</p>
         <p>La prise de conscience étant le premier objectif, cet outil peut aussi servir comme point de départ pour l'élaboration d'un Plan Energie Air Climat.</p>
-        <p>Toutes les informations présentées ont été élaborées à partir de <b class='marqueur'>données ouvertes</b>, pour dresser un ensemble d'indicateurs concernant l'énergie et l'air des différentes communes.</p>
+        <p>Toutes les informations présentées ont été élaborées à partir de <b class='marqueur'>données ouvertes</b>, pour dresser un ensemble d'indicateurs concernant l'énergie et l'air.</p>
 
         <h2>Comment l'utiliser ?</h2>
-        <p><span class='marqueur'>Commencez à écrire</span> le nom d'une commune et <span class='marqueur'>faîtes une sélection sur la liste proposée</span>.</p>
-        <p>Vous découvrirez <b>combien et comment</b> elle consomme de l'énergie ainsi que les <b>émissions</b> de substances polluantes qui sont associées.</p>
+        <p><span class='marqueur'>Commencez à écrire</span> le nom d'un orgznisme et <span class='marqueur'>faîtes une sélection sur la liste proposée</span>.</p>
+        <p>Vous découvrirez <b>combien et comment</b> cet organisme consomme de l'énergie ainsi que les <b>émissions</b> de substances polluantes qui sont associées.</p>
 
 
         <h2>Limité aux collectivités de 20 000 à 50 000 habitants</h2>
@@ -41,20 +42,39 @@
         <p>Cépendant, la conception de l'outil permet d'envisager qu'il soit facilement éténdu à toutes les collectivités.</p>
         <p>Les données de certaines communes des DOM TOM ne semblent malheureusement pas complètes.</p>
 
+        <h2>Mise à jour 2019</h2>
+        <p>
+          A la vue de l'intérêt montré par certaines EPCI, cet outil a été étendu à l'ensemble des EPCI. N'hésitez à remonter vos besoins concernant cet outil, par exemple via twitter : @tiropcom
+        </p>
+
       </div>
     </div>
 
     <div id="container" style="display: none;">
 
+
       <div id="communeW">
         <div id="commune" class='w'>
           <!-- <h2>Chiffres-clés de la commune</h2> -->
           <img id='questionCommune' src='img/question-commune.png' class='question questionG'>
+
+
           <p id="libelle3rem"></p>
           <p id='deptRegionEPCI'>
             <b class="upper" id="deptRegion"></b><br>
-            EPCI <span id="epci"></span> , code Insee : <span id="insee"></span>
+            <span id="wrapCommune">
+              <i>EPCI</i> <span id="epci"></span>,<br />
+              <i>code Insee</i> <span id="insee"></span>
+            </span>
+            <span id="wrapEPCI">
+              <i>SIREN</i> <span id="siren"></span>
+            </span>
           </p>
+
+          <div id="preLoc" class="w">
+            <div id="loc" class="w" style="height: 300px; border: 3px solid #fff;"></div>
+          </div>
+
 
           <div id="chiffresCles">
             <p class="chiffres"><b id="hb2015"></b> habitants en 2015</p>
@@ -75,14 +95,18 @@
           <div id='dpe1'>
             <p><b id="logements"></b>Logements (données Insee)</p>
             <p><b id="logementsDPE"></b>Logements avec DPE</p>
-            <p class='source'>Données publiées par <a href='https://www.data.gouv.fr/fr/datasets/base-des-diagnostics-de-performance-energetique-dpe/'>ADEME</a></p>
+            <p><b id="dpeAnnee"></b>Année moyenne de construction </p>
           </div>
           <div id='dpe2'>
+            <div id="dpe2_conso"></div>
+            <div id="dpe2_ges"></div>
             <div id="dpeMoyenne"></div>
           </div>
           <div id='dpe3'>
-            <p><b id="dpeAnnee"></b>Année moyenne de construction </p>
             <p><b id="dpeSurface"></b>Surface moyenne en m²</p>
+            <p><b id="dpeChauffage"></b>Besoin en chauffage w/m²</p>
+            <p><b id="dpeAltitude"></b>Altitude en mètres</p>
+            <p class='source'>Données publiées par<br /><a href='https://www.data.gouv.fr/fr/datasets/base-des-diagnostics-de-performance-energetique-dpe/'>ADEME</a></p>
           </div>
         </div>
       </div>
@@ -90,7 +114,7 @@
       <div id="consommationW">
         <div id="consommation" class='w'>
         <h2>Quelle est la consommation d'énergie ?</h2>
-        <h3>Consommation totale de gaz et d'électricité en 2016</h3>
+        <h3>Consommation totale de gaz et d'électricité en 2017</h3>
         <dl id="consoTotaleBig">
           <dt id="consoTotale" class="xxxl latoBlack"></dt>
           <dd id="consoTotaleInfo"><span class="l">MWh</span><br><span class="m ttu">(éléctricité + gaz) </span></dd>
@@ -104,7 +128,7 @@
             <img id="icon_electricite" class="conso_icon" src="img/electricite.png">
             <h3>Electricité</h3>
             <span id="consoTotaleE" class="latoBlack"></span> <span class="m">MWh</span><br>
-            <span class="ttu xs">Consommation 2016</span>
+            <span class="ttu xs">Consommation 2017</span>
             <p class='consoSecteurs'>Secteurs participant à la consommation totale</p>
             <div id="secteursE" class="svg-container"></div>
           </div>
@@ -113,7 +137,7 @@
             <img id="icon_gaz" class="conso_icon" src="img/gaz.png">
             <h3>Gaz</h3>
             <span id="consoTotaleG" class="latoBlack"></span> <span class="m">MWh</span><br>
-            <span class="ttu xs">Consommation 2016</span>
+            <span class="ttu xs">Consommation 2017</span>
             <p class='consoSecteurs'>Secteurs participant à la consommation totale</p>
             <div id="secteursG" class="svg-container"></div>
           </div>
@@ -140,7 +164,7 @@
           </ul>
         </div>
 
-        <p class='source'>Données publiées par <a href='http://www.statistiques.developpement-durable.gouv.fr/energie-climat/r/toutes-energies-donnees-locales-denergie-2.html'>statistiques.developpement-durable.gouv.fr</a></p>
+        <p class='source'>Données publiées par <a href='https://opendata.agenceore.fr/explore/?sort=modified'>Agence ORE</a></p>
       </div><!-- consommation -->
         <div id="chaleurFroid" class='w'>
           <h2>Réseau chaleur froid</h2>
@@ -156,7 +180,9 @@
       <div id="airDiv" class='w'>
         <img id="nubes_polluants" src="img/nubes_polluants.png">
         <h2>Quelle est la qualité de l'air ?</h2>
-        <h3>L'air de la commune</h3>
+
+        <!--
+        <h3 id="airh3"></h3>
         <p>Polluants présents dans l'air de la commune et ses effets potentiels sur la santé&nbsp;:</p>
         <ul id="airCommuneA">
           <li id='no2' title="Effets sur la santé : Risque de développement de bronchites chroniques chez les sujets asthmatiques">
@@ -189,8 +215,7 @@
               Peut induire des difficultés respiratoires, asthme. Risque de perturbation du fonctionnement des poumons
             </div>
           </li>
-        <!-- </ul>
-        <ul id="airCommuneB"> -->
+
           <li id="pm10" title="Effets sur la santé : Risques de développement de maladies cardio-vasculaires et respiratoires">
             <span class='airPolluant'>PM10</span>
             <span class='airValue' id="pm10Val">-</span>
@@ -223,7 +248,7 @@
         </li>
         </ul>
          <p class="source">Données issues de la plateforme nationale de prévision de la qualité de l’air www.prevair.org , 21-09-2018</p>
-
+air -->
         <h3>L'air du département</h3>
         <p>Polluants émis par les établissements dans l'air du département&nbsp;:</p>
 
@@ -241,7 +266,7 @@
         </div>
         <p class="source">Données issues du site georisques.gouv.fr, site du réseau developpement-durable.gouv.fr</p>
       </div>
-    </div><!-- air -->
+    </div>
 
 
     <div id="enrW">
@@ -296,6 +321,8 @@
   <script src="js/d3.v3.min.js"></script>
   <script src="js/fonctions-d3js-v3.js"></script>
   <script src="js/sankey.v3-2.js"></script>
+  <script src="assets/leaflet/leaflet.js"></script>
+  <script src="assets/jquery/jquery-3.3.1.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

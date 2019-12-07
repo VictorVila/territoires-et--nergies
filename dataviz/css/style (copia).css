@@ -165,15 +165,13 @@ main    {/* max-width: 780px;*/ height: auto; margin: 0 auto;  }
 #barreRecherche {padding:7px 2%; width: 96%; font-size: .9rem;
   border: 1px solid #b71c1c; }
 
-#resultatsRecherche {position: absolute; top: 84px;
+#resultatsRecherche {position: absolute; top: 68px;
   margin: -15px 0 0px; border: 1px solid #ccc; border-top: none;
   padding:5px 10px; width: calc(91% - 15px); display: none;
-  max-height: 200px; overflow-y: scroll; background: #fff;z-index: 1000; text-align: left; box-shadow: 0 2px 4px hsla(0, 0%, 0%, .2);}
+  max-height: 200px; overflow-y: scroll; background: #fff;z-index: 1000; text-align: left; }
 #resultatsRecherche p { padding: 5px 5px}
 #resultatsRecherche p:hover { cursor: pointer; background: #05f; color: white; }
 small {font-size: .8rem}
-#resultatsRecherche b { font-family: 'Noto Sans'; font-size: .8rem; text-transform: uppercase; padding: 2px 6px; background: #6ec9fb; color: #82507b; margin: 0px 5px 0 0; border-radius: 3px; box-shadow: 0 1px 2px #ccc;}
-#resultatsRecherche b.epci {  background: #ffff4b; color: #300a2b;}
 #nbResultats { font: normal 0.8rem Arial, sans-serif; color: #fff; padding-left: 5px;}
 #nbResultats::before, #nbResultats::after { content: none; }
 #comment, .marqueur { background: rgba(255, 255, 0, 0.8); }
@@ -209,9 +207,8 @@ h1.resultat { margin : 2rem ; color: #300a2b; font-family: 'Quattrocento Sans';}
 /*
   chiffresCles
 -------------------- */
-#libelle3rem { font-size: 3rem; font-family: 'Quattrocento Sans'; text-align: center; line-height:120%; margin: 6rem 0 1rem;}
-#libelle3rem b {}
-#deptRegionEPCI i {font-weight: normal; font-style: normal; color: #666; font-size: .8rem; text-transform: uppercase; padding: 2px 6px; background: #f0f0f0; box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.2);}
+#libelle3rem { font-size: 3rem; font-family: 'Quattrocento Sans'; text-align: center;
+    margin: 6rem 0 0;}
 #deptRegionEPCI { text-align: center; text-transform: uppercase; margin: 0 0 20px; }
 .presentation { padding: 20px; font-size: 1rem; background: #FFF9C4; border: 1px solid #fff176; }
 .presentation b { font-size: 1rem; }
@@ -240,17 +237,13 @@ dpe
 #dpe h2 { padding-top: 2rem; border-color: #fff; color: #fff; margin: 3rem 0 1rem; text-align: center; }
 #dpe b { display: block; font-size: 1.8rem; padding: 0 0 10px; font-family: 'Quattrocento Sans'; }
 #dpe p { font-size: .9rem; }
-#dpe div { float: left; width: 30%; margin: 0 1%;  padding: 40px 0 0; /*min-height: 220px;*/}
+#dpe div { float: left; width: 30%; margin: 0 1%;  padding: 40px 0 0; min-height: 220px;}
 #dpe div, #dpe p, #dpe b { color:#fff; text-align: center; }
 #dpe1 p , #dpe3 p { padding: 20px 0; line-height: 150%; }
 #dpe #dpe2 { width: 28%; padding: 40px 1%; margin-top: 40px; }
 #dpe2 p { color: #300a2b; text-transform: none; font-size: .9rem;}
-#dpe2 .dpeLabel { font-size: 3rem; font-weight: bold; }
-#dpe2 .dpeValue { font-size:1.4rem;}
-#dpe #dpe2_conso ,
-#dpe #dpe2_ges {width: 100%; float: none; margin: 0 auto; padding: 10px 1% 0 1%;
-  border: 5px solid #fff;}
-#dpe #dpe2_conso { margin-bottom: 20px}
+#dpe2 #dpeLabel { font-size: 6rem; font-weight: bold; }
+#dpe2 #dpeValue { font-size:1.4rem;}
 #dpe3 {}
   #dpeW .source { padding: 0; }
   #dpe span { width: 100%; background: yellow; padding: 10px 20px; }
@@ -261,15 +254,6 @@ dpe
   .dpeClassE { background: #fc0;  }
   .dpeClassF { background: #ff9a33;  }
   .dpeClassG { background: #ff0000;  }
-
-  .gesClassA { background: #f7eafd;  }
-  .gesClassB { background: #e3b6f7;  }
-  .gesClassC { background: #d896f4;  }
-  .gesClassD { background: #cf7cf1;  }
-  .gesClassE { background: #c045ed;  }
-  .gesClassF { background: #af00e9;  }
-  .gesClassG { background: #9400dc;  }
-
 
 /* communeDiv
 -------------------- */
@@ -536,7 +520,7 @@ vert #4CAF50
   /* titre résultats */
   #titre-1 { height: 174px; background: url('../img/titre-1.png') 50% 0 no-repeat; }
   #titre-2 { height: 222px; background: url('../img/titre-2.png') 50% 0 no-repeat; }
-  /* #libelle3rem { margin: 4rem 0 0;} */
+  #libelle3rem { margin: 4rem 0 0;}
 
   /* EnR */
   #enrH2-1 { /*background: url(../img/soleil.png) 0 0 no-repeat; */ text-align: right; }
@@ -644,5 +628,3 @@ h3, p { font-family: 'Noto Sans'; }
     padding:0px;
     font-size:10px !important;
   }
-/* leaflet ; supprimer l'image shadow */
-.leaflet-shadow-pane { display: none; }

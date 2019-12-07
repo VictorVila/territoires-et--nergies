@@ -479,7 +479,7 @@ var showYear = function (annee, id)
   .attr("width", sankey.nodeWidth())
   .style("fill", function(d)
   {
-    console.log("sankeyId", sankeyId);
+    // console.log("sankeyId", sankeyId);
     if ( sankeyId == 'secteursE')
     {
       switch (d.name)
@@ -539,19 +539,20 @@ var iniSankey = function (csv, id)
   d3.csv(csv, function(error, data)
   {
     dataAnParAn = data;
-    showYear("2016", id);
+
+    showYear("2017", id);
 
     //// set electricité residentiel pour la calculette
     // residentiel,total,96974,2016
     if ( id === 'secteursE')
     {
 
-      console.log("data sankey E ", data);
+      // console.log("data sankey E ", data);
       for (i in data)
       {
         if (data[i].source == 'residentiel')
         {
-          console.log("data residentiel ", data[i].value);
+          // console.log("data residentiel ", data[i].value);
           setEtabElectriciteResidentiel(data[i].value);
         }
       }
@@ -579,4 +580,11 @@ d3.select("#an2016").on("click", function()
   d3.selectAll("button").classed('activo', false);
   d3.select(this).classed('activo', true);
   showYear ( "2016" );
+});
+
+d3.select("#an2017").on("click", function()
+{
+  d3.selectAll("button").classed('activo', false);
+  d3.select(this).classed('activo', true);
+  showYear ( "2017" );
 });

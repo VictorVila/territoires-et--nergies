@@ -1,22 +1,5 @@
 
 /*
-Habitants : 11 593 957
-Menages : 5 159 764
-
-
-SELECT avg(conso_totale) FROM `dpe_avg`
-14578.22
-
-SELECT avg(`conso_totale`) FROM `consomation_20_50`
-175284.45
-
-SELECT avg(`conso_totale`) FROM `consomation_20_50` where `filiere` = 'Electricite'
-160169.82
-
-SELECT avg(`conso_totale`) FROM `consomation_20_50` where `filiere` = 'Gaz'
-190454.80
-
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 Variables globales
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,10 +50,11 @@ var setEtabElectriciteResidentiel = function (v)
 Recherche
 ~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-//// Liste de communes pour la fonction de recherche. Contains() est case-sensitive
+//// Liste de communes pour la fonction de recherche.
+//// Contains() est case-sensitive
 var communes = '';
 
-d3.json('data/organismes_20k_50k_liste.php', function(error, data)
+d3.json('data/organismes_liste.php', function(error, data)
 {
   if (error) console.log(error);
   communes = data;
@@ -83,7 +67,6 @@ var chercher = function ()
 
   for (n in communes)
   {
-    // if (communes[n].libelle.toLowerCase().includes(saisie))
     if ( inclue( communes[n].libelle.toLowerCase(), saisie ) )
     {
       resultatsArr.push(communes[n]);
@@ -97,8 +80,20 @@ var chercher = function ()
     for (n in resultatsArr)
     {
       resultatsHTML += '<p class="resultatItem" '
-      + 'onclick="selectionner(' + resultatsArr[n].insee + ')">'
-      + resultatsArr[n].libelle
+      + 'onclick="selectionner('
+      + resultatsArr[n].insee
+      + ','
+      + resultatsArr[n].code_dept
+      + ')">';
+      if (resultatsArr[n].typeLabel === 'epci')
+      {
+        resultatsHTML += '<b class="epci">' + resultatsArr[n].typeLabel + '</b>';
+      }
+      else
+      {
+        resultatsHTML += '<b>' + resultatsArr[n].typeLabel + '</b>';
+      }
+      resultatsHTML += resultatsArr[n].libelle
       + ' <small>(' + resultatsArr[n].code_dept
       + ')</small></p>';
     }
@@ -123,7 +118,7 @@ var chercher = function ()
   }
 }; // chercher
 
-var selectionner = function (inseeP)
+var selectionner = function (inseeP, dept)
 {
   // réinitialiser les données de pollution du dépt
   etab.donnees = null;
@@ -140,7 +135,7 @@ var selectionner = function (inseeP)
   barre.value = commune.libelle;
   resultats.setAttribute('style', 'display:none');
   nbResultats.innerHTML = '';
-  iniUI( inseeP );
+  iniUI( inseeP, dept );
 };
 
 //// lancer la recherche
@@ -156,20 +151,25 @@ attachEvent(document.querySelector('#barreRecherche'), 'keyup',  chercher);
 iniUI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-var iniUI = function ( insee )
+var iniUI = function ( insee, dept )
 {
   //// cacher info, montrer contenu
   document.querySelector('#info').setAttribute('style', 'display: none');
   document.querySelector('#container').setAttribute('style', 'display: block');
 
+  //// Commune ou EPCI ?
+  var isCommune = true;
+  if (insee.toString().length > 5) isCommune = false;
+
   ////  chiffres-clés de la collectivité
   try
   {
-    iniChiffresCles(insee); // lance aussi iniPrevair
+    if (isCommune) iniChiffresCles(insee); // lance aussi iniPrevair
+    else iniChiffresClesEPCI(insee); // lance aussi iniPrevair
   }
   catch (e)
   {
-    console.log("iniChiffresCles -> error");
+    console.log("iniChiffresCles -> error", e);
   }
 
   ////  consommation de gaz et d'élecricité
@@ -201,7 +201,7 @@ var iniUI = function ( insee )
     console.log("iniSankey g -> error");
   }
 
-  // -- évolution de la consommation d'électricité et de gaz
+  // -- D3JS évolution de la consommation d'électricité et de gaz
   var options = {selector: "#streamChart", csv: "data/conso_evo.php?i=" + insee}
   streamChart(options);
 
@@ -223,13 +223,15 @@ var iniUI = function ( insee )
   // - données des établissments du département
   try
   {
-    iniEmissionsEtablissements(insee);
+    iniEmissionsEtablissements(insee, dept);
   }
   catch (e)
   {
     console.log("iniEmissionsEtablissements -> error");
   }
 }; // iniUI
+
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -238,10 +240,49 @@ iniChiffresCles
 */
 var iniChiffresCles = function (insee)
 {
+  console.log('iniChiffresCles', insee);
   d3.json('data/communes_20_50.php?i=' + insee, function(error, data)
   {
     if (error) console.log(error);
+
     commune = data[0];
+
+    //// afficher sections communes et cacher sections EPCI
+    // document.querySelector('#preLoc').setAttribute('style', 'display:block');
+    document.querySelector('#wrapCommune').setAttribute('style', 'display:block');
+    document.querySelector('#wrapEPCI').setAttribute('style', 'display:none');
+
+    //// carte
+
+    var loc = [];
+    loc.push(parseFloat(commune.latitude));
+    loc.push(parseFloat(commune.longitude));
+
+    var zoom = 11;
+
+    //// détruire totalement la carte avant de faire une autre
+    $("#preLoc").html("");
+    $( "<div id=\"loc\" style=\"height: 300px;\"></div>" ).appendTo("#preLoc");
+    try {delete window.map;} catch(e){}
+
+
+    var map = L.map('loc').setView(loc, zoom);
+    var tiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+    L.tileLayer( tiles, { attribution: attribution } ).addTo(map);
+
+    //// Popup
+    L.marker(loc).addTo(map)
+
+    // var contour = [commune.forme];
+    var contour = [{
+       "type": "Feature",
+         "geometry": JSON.parse(commune.forme)
+    }];
+    L.geoJSON(contour, { style: {color: '#19aeff'} }).addTo(map);
+
+
 
     //// Admin
     var libelles = document.querySelectorAll('.libelle_commune');
@@ -265,7 +306,7 @@ var iniChiffresCles = function (insee)
       i++;
     }
 
-    _s('libelle3rem' , commune.libelle + ' (' + commune.code_dept + ')');
+    _s('libelle3rem' , commune.libelle + ' <b>(' + commune.code_dept + ')</b>');
     _s('deptRegion', commune.dept + ', ' + commune.region);
     _s('epci', commune.epci);
     _s('insee', commune.insee);
@@ -291,44 +332,153 @@ var iniChiffresCles = function (insee)
     enr.commune = commune.libelle;
     enr.menages = commune.menages;
 
-
     //// Imbriquer DPE
-    d3.json('data/dpe_avg.php?cp=' + commune.cp, function (error, data)
+    setDPE(commune.insee);
+
+    //// Imbriquer énergies rénouvelables
+    try
     {
-      if (error) console.log(error);
+      iniPotentielENR(commune.code_region);
+    }
+    catch (e)
+    {
+      console.log("iniPotentielENR -> error");
+    }
 
-      var dpeLabel = '-', dpeValue = '-', dpeSurface = '-', dpeLabel = '-',
-      dpeClass = '-', dpeAnnee = '-', dpeNb_pe = '-';
+    //// Imbriquer le lancement des données AIR
+    try
+    {
+      iniPrevair(commune.insee, commune.latitude, commune.longitude);
+    }
+    catch (e)
+    {
+      console.log("iniPrevair -> error");
+    }
 
-      d = data[0];
+    // iniTreemap(commune.insee);
+  });
 
-      if (d.surface)
-      {
-        dpeAnnee = d.annee;
-        dpeNb_pe = _f(d.nb_dpe);
-        // "consommation énergie" : Consommation tous usages en kWh/m²
-        dpeValue = parseFloat(d.conso_m2).toFixed(0);
-        dpeSurface = parseFloat(d.surface).toFixed(1);
+}; // iniChiffresCles
 
-        if (dpeValue < 451) { dpeLabel = 'F'; }
-        if (dpeValue < 331) { dpeLabel = 'E'; }
-        if (dpeValue < 231) { dpeLabel = 'D'; }
-        if (dpeValue < 151) { dpeLabel = 'C'; }
-        if (dpeValue < 91) { dpeLabel = 'B'; }
-        if (dpeValue < 51) { dpeLabel = 'A'; }
 
-        dpeClass = 'dpeClass' + dpeLabel;
-      }
-      document.querySelector('#dpe2').setAttribute('class', dpeClass);
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iniChiffresClesEPCI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+var iniChiffresClesEPCI = function (insee)
+{
+  d3.json('data/epci.php?i=' + insee, function(error, data)
+  {
+    if (error) console.log(error);
 
-      var dpeHTML = '<p id="dpeTitre">Performance énergetique</p><p id="dpeLabel">' + dpeLabel + '</p><p id="dpeValue">' + dpeValue + ' kWh/m²</p><p>Moyenne dans les logements de la commune</p>';
+    commune = data[0];
 
-      document.querySelector('#dpe2').innerHTML = dpeHTML;
-      document.querySelector('#dpeAnnee').innerHTML = dpeAnnee;
-      document.querySelector('#logementsDPE').innerHTML = dpeNb_pe;
-      document.querySelector('#dpeSurface').innerHTML = dpeSurface;
+    var geo = commune.geo_point.split(',');
+    console.log('geo', geo);
+
+    //// afficher sections communes et cacher sections EPCI
+    // document.querySelector('#preLoc').setAttribute('style', 'display:block');
+    document.querySelector('#wrapCommune').setAttribute('style', 'display:none');
+    document.querySelector('#wrapEPCI').setAttribute('style', 'display:block');
+
+    //// carte
+    var loc = [];
+    loc.push(parseFloat(geo[0]));
+    loc.push(parseFloat(geo[1]));
+
+    var zoom = 9;
+
+    //// détruire totalement la carte avant de faire une autre
+    $("#preLoc").html("");
+    $( "<div id=\"loc\" style=\"height: 300px;\"></div>" ).appendTo("#preLoc");
+    try {delete window.map;} catch(e){}
+
+    var map = L.map('loc').setView(loc, zoom);
+    var tiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+    L.tileLayer( tiles, { attribution: attribution } ).addTo(map);
+
+    //// Popup
+    L.marker(loc).addTo(map)
+
+    //// Charger le contour à partir de opendatasoft
+    d3.json('https://public.opendatasoft.com/api/records/1.0/search/?dataset=contours-geographiques-des-epci-2019&q=' + commune.insee + '&facet=code_epci', function(error, data)
+    {
+      var d = data.records[0].fields.geo_shape.coordinates[0];
+      // https://gis.stackexchange.com/questions/54065/leaflet-geojson-coordinate-problem
+      // ISO 6709 standard : latitude, longitude
+      // geojson : longitude, latitude
+      // for (i in d) d[i] = d[i].reverse();
+      // console.log("d",d);
+      // var polygon = L.polygon(d, {color: '#19aeff'}).addTo(map);
+      // map.fitBounds(polygon.getBounds());
+      var contour = [{
+	       "type": "Feature",
+	         "geometry": {
+		           "type": "Polygon",
+		           "coordinates": [d]
+	          }
+      }];
+
+      L.geoJSON(contour, { style: {color: '#19aeff'} }).addTo(map);
 
     });
+
+
+    //// Admin
+    var libelles = document.querySelectorAll('.libelle_commune');
+    var lettre = commune.libelle[0];
+    var libelle = '';
+    if (lettre == 'A' || lettre == 'E' || lettre == 'I' || lettre == 'O' || lettre == 'U')
+    {
+      libelle = "d'" + commune.libelle;
+    }
+    else
+    {
+      libelle = "de " + commune.libelle;
+    }
+
+    var i = 0;
+
+    for (n in libelles)
+    {
+      if (i < 1) libelles[n].innerHTML = commune.libelle;
+      else libelles[n].innerHTML = libelle;
+      i++;
+    }
+
+    _s('libelle3rem' , commune.libelle + ' <b>(' + commune.code_dept + ')</b>');
+    _s('deptRegion', commune.departement + ', ' + commune.region);
+    // _s('epci', commune.epci);
+    // _s('insee', commune.insee);
+    _s('siren', commune.insee);
+
+    //// Chiffres clés
+    _s('hb2015', _f(commune.population));
+
+    var evoPopulation = 0;
+    if (commune.population_2010)
+    {
+      evoPopulation = commune.population - commune.population_2010;
+      if (evoPopulation > 0) evoPopulation = "+" + _f(evoPopulation);
+      if (evoPopulation < 0) msgPopulation = "-" + _f(evoPopulation);
+    }
+    _s('hb2010', evoPopulation);
+    _s('menages', _f(commune.menages));
+    //_s('menages_enr', _f(commune.menages));
+    _s('logements', _f(commune.logements));
+    _s('etbActifs', _f(commune.ets_actifs));
+    _s('superficie', _f(commune.superficie));
+
+    //// EnR
+    enr.commune = commune.libelle;
+    enr.menages = commune.menages;
+
+
+    //// Imbriquer DPE
+    setDPE(commune.insee);
 
 
     //// Imbriquer énergies rénouvelables
@@ -344,7 +494,12 @@ var iniChiffresCles = function (insee)
     //// Imbriquer le lancement des données AIR
     try
     {
-      iniPrevair(commune);
+      console.log('insee', insee);
+      console.log('commune.insee', commune.insee);
+      console.log('lat lon', geo[0], geo[1]);
+      // Latitude: 47.338563 | Longitude: -2.198014
+      iniPrevair(commune.insee, geo[0], geo[1]);
+
     }
     catch (e)
     {
@@ -362,24 +517,24 @@ var iniChiffresCles = function (insee)
 iniConsoTotale
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-var iniConsoTotale = function (insee)
+var iniConsoTotale = function (id_org)
 {
-  d3.csv('data/consoTotale_20k_50k.php?i=' + insee, function (error, data)
+  d3.csv('data/consoTotale.php?i=' + id_org, function (error, data)
   {
     if (error) console.log(error);
 
     //// trouver les max de 2016
     data.forEach(function(d)
     {
-      if (d.filiere == "Electricité" && d.annee == "2016") consoTotale.e2016 = parseInt( d.conso_totale );
-      if (d.filiere == "Gaz" && d.annee == "2016") consoTotale.g2016 = parseInt( d.conso_totale );
+      if (d.filiere == "Electricité" && d.annee == "2017") consoTotale.e2017 = parseInt( d.conso_totale );
+      if (d.filiere == "Gaz" && d.annee == "2017") consoTotale.g2017 = parseInt( d.conso_totale );
     });
-    try { consoTotale.eg2016 = consoTotale.e2016 + consoTotale.g2016; }
-    catch (e) { consoTotale.eg2016 = 0; }
+    try { consoTotale.eg2017 = consoTotale.e2017 + consoTotale.g2017; }
+    catch (e) { consoTotale.eg2017 = 0; }
 
-    _s('consoTotale', _f( consoTotale.eg2016 ));
-    _s('consoTotaleE', _f( consoTotale.e2016 ));
-    _s('consoTotaleG', _f( consoTotale.g2016 ));
+    _s('consoTotale', _f( consoTotale.eg2017 ));
+    _s('consoTotaleE', _f( consoTotale.e2017 ));
+    _s('consoTotaleG', _f( consoTotale.g2017 ));
 
     //// ENR
     // enr_conso_electrique = consoTotale.e2016;
@@ -406,7 +561,6 @@ var iniChaleurFroid = function (insee)
 
     if (data.length == 0)
     {
-      console.log("Pas de réseau chaleur froid");
       document.querySelector('#chaleurFroid').setAttribute('style', 'display:none');
     }
     else
@@ -447,9 +601,20 @@ var iniChaleurFroid = function (insee)
 iniPrevair
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-var iniPrevair = function (commune)
+var iniPrevair = function (insee, lat, lon)
 {
-  d3.json('data/lalo.php?lat=' + commune.latitude + '&lon=' + commune.longitude, function(error, data)
+  if (insee.toString().length > 5)
+  {
+    document.querySelector('#airh3').innerHTML = "L'air de l'EPCI";
+  }
+  else
+  {
+    document.querySelector('#airh3').innerHTML = "L'air de la commune";
+  }
+
+  // http://localhost/territoires-et-energies/dataviz/data/lalo.php?lat=47.3385628699&lon=-2.19801438047
+  // ok pero non actualizado
+  d3.json('data/lalo.php?lat=' + lat + '&lon=' + lon, function(error, data)
   {
     air = data[0];
 
@@ -479,6 +644,71 @@ var iniPrevair = function (commune)
   });   //// affichage des données pollution de la commune
 };
 
+var setDPE = function (id_org)
+{
+  d3.json('data/dpe_avg.php?id_org=' + id_org, function (error, data)
+  {
+    if (error) console.log(error);
+
+    var dpeLabel = '-', dpeValue = '-',gesLabel = '-', gesValue = '-',
+    dpeSurface = '-', dpeLabel = '-',
+    dpeClass = '-', gesClass = '-', dpeAnnee = '-', dpeNb_pe = '-';
+
+    d = data[0];
+
+    if (d.surface)
+    {
+      dpeAnnee = d.annee;
+      dpeNb_pe = _f(d.nb_dpe);
+      // "consommation énergie" : Consommation tous usages en kWh/m²
+      dpeValue = parseFloat(d.conso_m2).toFixed(0);
+      gesValue = parseFloat(d.ges).toFixed(0);
+      dpeSurface = parseFloat(d.surface).toFixed(1);
+      dpeChauffage = parseFloat(d.chauffage).toFixed(1);
+      dpeAltitude = parseFloat(d.altitude).toFixed(0);
+
+      if (dpeValue < 451) { dpeLabel = 'F'; }
+      if (dpeValue < 331) { dpeLabel = 'E'; }
+      if (dpeValue < 231) { dpeLabel = 'D'; }
+      if (dpeValue < 151) { dpeLabel = 'C'; }
+      if (dpeValue < 91) { dpeLabel = 'B'; }
+      if (dpeValue < 51) { dpeLabel = 'A'; }
+
+      dpeClass = 'dpeClass' + dpeLabel;
+
+      if (gesValue > 80) {gesLabel = 'G'}
+      if (gesValue < 81) {gesLabel = 'F'}
+      if (gesValue < 56) {gesLabel = 'E'}
+      if (gesValue < 36) {gesLabel = 'D'}
+      if (gesValue < 21) {gesLabel = 'C'}
+      if (gesValue < 11) {gesLabel = 'B'}
+      if (gesValue < 6) {gesLabel = 'A'}
+
+      gesClass = 'gesClass' + gesLabel;
+    }
+    document.querySelector('#dpe2_conso').setAttribute('class', dpeClass);
+    document.querySelector('#dpe2_ges').setAttribute('class', gesClass);
+
+    var dpeHTML = '<p class="dpeTitre">Performance énergetique</p>'
+    + '<p class="dpeLabel">' + dpeLabel + '</p>'
+    + '<p class="dpeValue">' + dpeValue + ' kWh/m²/an</p>'
+    + '<p>Moyenne dans les logements</p>';
+
+    var gesHTML = '<p class="dpeTitre">Gaz à effet de serre</p>'
+    + '<p class="dpeLabel">' + gesLabel + '</p>'
+    + '<p class="dpeValue">' + gesValue + ' kg CO2/m²/an</p>'
+    + '<p>Moyenne dans les logements</p>';
+
+    document.querySelector('#dpe2_conso').innerHTML = dpeHTML;
+    document.querySelector('#dpe2_ges').innerHTML = gesHTML;
+    document.querySelector('#dpeAnnee').innerHTML = dpeAnnee;
+    document.querySelector('#logementsDPE').innerHTML = dpeNb_pe;
+    document.querySelector('#dpeSurface').innerHTML = dpeSurface;
+    document.querySelector('#dpeChauffage').innerHTML = dpeChauffage;
+    document.querySelector('#dpeAltitude').innerHTML = dpeAltitude;
+
+  });
+};
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -486,7 +716,7 @@ iniEmissionsEtablissements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-var iniEmissionsEtablissements = function (insee)
+var iniEmissionsEtablissements = function (insee,dept)
 {
   //// bouton polluants hors CO2
   attachEvent(
@@ -494,7 +724,7 @@ var iniEmissionsEtablissements = function (insee)
     'click',
     function ()
     {
-      bubbleJSON(insee, 0);
+      bubbleJSON(dept, 0);
       d3.select('#etabPolluants').classed('active', true);
       d3.select('#etabCO2').classed('active', false);
       d3.select('#etabEtabs').classed('active', false);
@@ -508,7 +738,7 @@ var iniEmissionsEtablissements = function (insee)
     'click',
     function ()
     {
-      bubbleJSON(insee, 1);
+      bubbleJSON(dept, 1);
       d3.select('#etabPolluants').classed('active', false);
       d3.select('#etabCO2').classed('active', true);
       d3.select('#etabEtabs').classed('active', false);
@@ -531,7 +761,7 @@ var iniEmissionsEtablissements = function (insee)
   );
 
   // ini bubbles
-  bubbleJSON(insee, 0);
+  bubbleJSON(dept, 0);
   d3.select('#etabPolluants').classed('active', true);
   d3.select('#etabCO2').classed('active', false);
   d3.select('#etabEtabs').classed('active', false);
@@ -634,3 +864,15 @@ var set_percentage_solaire = function(mw)
 };
 
 attachEvent(document.querySelector('#enr_m2'), 'keyup',  set_potentiel_solaire);
+
+
+
+//// Si id_org dans URL lancer l'UI
+var u = new URL(window.location);
+var us = new URLSearchParams(u.search);
+var id_org_url = null;
+if (us.has('i'))
+{
+  id_org_url = us.get('i');
+}
+if (id_org_url) iniUI(id_org_url);

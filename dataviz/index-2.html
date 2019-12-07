@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Territoires et énergies</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Quattrocento+Sans:700" rel="stylesheet"> -->
+  <!-- <link href="./css/style.css?i=1231" rel="stylesheet"> -->
+</head>
+<body>
+
+</body>
+  <div id="loc" style="width: 400px;height: 300px;">
+  <!-- <div id="loc"> -->
+  </div>
+
+  <!-- <script src="js/d3.v3.min.js"></script>
+  <script src="js/fonctions-d3js-v3.js"></script>
+  <script src="js/sankey.v3-2.js"></script> -->
+  <script src="assets/leaflet/leaflet.js"></script>
+  <!-- <script src="assets/jquery/jquery-3.3.1.min.js"></script> -->
+  <!-- <script src="js/main.js"></script> -->
+  <script>
+
+  //// carte
+  var loc = [50.108437905, 1.83210392382];
+  var zoom = 13;
+  var map = L.map('loc').setView(loc, zoom);
+  var tiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+  L.tileLayer( tiles, { attribution: attribution } ).addTo(map);
+
+  //// Popup
+  L.marker(loc).addTo(map)
+    .bindPopup('Coucou.<br> Estamos eiqui.')
+    .openPopup();
+
+
+</script>
+</body>
+</html>

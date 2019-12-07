@@ -13,9 +13,10 @@ if (!is_numeric($_GET['i'])) return $out;
 require_once('connect.php');
 
 $sql = "SELECT `annee`, `conso_totale`,`filiere`
-        FROM `consomation_20_50`
-        WHERE insee='" . $_GET['i']. "'
+        FROM `consomation`
+        WHERE id_org='" . $_GET['i']. "'
         ORDER BY filiere ASC, annee DESC";
+// BEAUNE EPCI :  SELECT `annee`, `conso_totale`,`filiere` FROM `consomation` WHERE id_org='200006682' ORDER BY filiere ASC, annee DESC
 
 $out = "annee,conso_totale,filiere\n";
 try
@@ -33,7 +34,7 @@ catch ( Exception $e )
 }
 finally
 {
-  $connect->close(); 
+  $connect->close();
 
   echo ( $out );
   // echo  $sql;

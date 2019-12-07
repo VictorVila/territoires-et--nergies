@@ -250,6 +250,10 @@ var streamChart = function (op)
       strokecolor = colorrange[0];
       var format = d3.time.format("%m/%d/%y");
       var margin = {top: 60, right: 80, bottom: 30, left: 80};
+      // var width = document.querySelector(op.selector).clientWidth - margin.left - margin.right;
+      // var height = 400 - margin.top - margin.bottom;
+      console.log("stream clientWidth", document.querySelector(op.selector).clientWidth);
+      console.log("stream width", width);
 
       var width = 620;
       var height = 306;
@@ -302,7 +306,7 @@ var streamChart = function (op)
         {
           d.date = format.parse(d.date);
           d.value = +d.value;
-        }); 
+        });
 
         var layers = stack(nest.entries(data));
 
@@ -561,6 +565,18 @@ iniBubbles
 Base du bubble chart
 
 */
+function foreign(foreign)
+{ /* added */
+  console.log("foreign", foreign);
+
+  foreign.attr("x", function(d) {
+    console.log(">>>d<<<", d);
+    return d.x;
+  })
+  .attr("y", function(d) { return (d.y); })
+  .attr("width", function(d) { return (d.x + d.dx) - (d.x); })
+  .attr("height", function(d) { return (d.y + d.dy) - (d.y); });
+}
 var iniBubbles = function (filter)
 {
   // Attention, certains dépts n'ont pas des emissions de polluants autres que CO2 !
@@ -611,9 +627,23 @@ var iniBubbles = function (filter)
   .attr("dy", ".3em")
   .style("text-anchor", "middle")
   .style("pointer-events", "none")
+  .text(function(d) { return d.className; });
+
+
+  // etab.node.append("foreignObject")
+  //       .call(foreign)
+  //       .attr("class","foreignobj")
+  //       .append("xhtml:div")
+  //       .attr("dy", ".5em")
+  //       .html(function(d)
+  //       {
+  //         return '<p> ' + d.className + '</p>';
+  //       })
+  //       .attr("class","textdiv");
+
+
   //------ .text(function(d) { return d.className.substring(0, d.r / 3); });
 
-  .text(function(d) { return d.className; });
 
   // etab.node.append("foreignObject")
   // .attr("class","foreignobj")

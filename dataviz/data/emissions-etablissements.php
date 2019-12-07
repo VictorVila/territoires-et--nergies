@@ -33,11 +33,15 @@ La solution est de ne pas tenir compte des codes insee
         WHERE   insee LIKE "' . substr($_GET['i'], 0, 2) . '%"
         GROUP BY etablissement, polluant, quantite,
                 unite, libelle_ape';*/
+
+// http://localhost/territoires-et-energies/dataviz/data/emissions-etablissements.php?i=244400644
 $sql = 'SELECT DISTINCT etablissement, polluant, quantite, unite,
         libelle_ape
         FROM    emissions_etablissements
-        WHERE   insee LIKE "' . substr($_GET['i'], 0, 2) . '%"
-        AND polluant != "CO2 Total (CO2 d\'origine biomasse et non biomasse)"';
+      --  WHERE   insee LIKE "' . substr($_GET['i'], 0, 2) . '%"
+        WHERE   insee LIKE "' . $_GET['i'] . '%"
+        AND polluant != "CO2 Total (CO2 d\'origine biomasse et non biomasse)"
+        ORDER BY unite DESC, CAST(quantite AS unsigned) DESC';
 /* il faut exclure "d'origine biomasse et non biomasse" car dans toutes les vérifications
 manuelles font des doublons :
 

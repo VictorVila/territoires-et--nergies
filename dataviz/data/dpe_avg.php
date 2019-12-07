@@ -4,8 +4,8 @@ header('Content-Type: application/json; charset=utf-8');
 $out = "[{}]";
 
 if (!isset($_GET)) return $out;
-if (!isset($_GET['cp'])) return $out;
-if (!is_numeric($_GET['cp'])) return $out;
+if (!isset($_GET['id_org'])) return $out;
+if (!is_numeric($_GET['id_org'])) return $out;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 select
@@ -13,10 +13,10 @@ select
 
 require_once('connect.php');
 
-$sql = 'SELECT  *
+$sql = "SELECT  *
         FROM  dpe_avg
-        WHERE cp = "' . $_GET['cp'] . '"
-        LIMIT 1';
+        WHERE  id_org = '" . $_GET['id_org'] . "'
+        LIMIT 1";
 
 // echo "$sql <br>";
 
@@ -31,7 +31,9 @@ try
     $out .= ' "annee": "' . $r['annee'] . '", ';
     $out .= ' "conso_m2": "' . $r['conso_m2'] . '", ';
     $out .= ' "surface": "' . $r['surface'] . '", ';
-    $out .= ' "conso_totale": "' . $r['conso_totale'] . '", ';
+    $out .= ' "ges": "' . $r['ges'] . '", ';
+    $out .= ' "chauffage": "' . $r['besoin_chauffage'] . '", ';
+    $out .= ' "altitude": "' . $r['altitude'] . '", ';
     $out .= ' "nb_dpe": "' . $r['nb_dpe'] . '"}';
   }
 }

@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: text/plain; charset=utf-8');
 
 $out = "[{}]";
   if (!isset($_GET)) return $out;
@@ -15,8 +15,8 @@ $out = "[{}]";
           ceil(`conso_agriculture`) as agriculture,
           ceil(`conso_industrie`) as industrie, ceil(`conso_tertiaire`) as tertiaire,
           ceil(`conso_residentiel`) as residentiel, ceil(`conso_inconu`) as inconu
-  FROM `consomation_20_50`
-  WHERE   insee = '" . $_GET['i'] . "'
+  FROM `consomation`
+  WHERE   id_org = '" . $_GET['i'] . "'
   ORDER BY filiere ASC";
 
   $out = "key,value,date\n";
@@ -63,7 +63,7 @@ $out = "[{}]";
     // Ordenar los datos y agregar $arr como el último parámetro, para ordenar por la clave común
     array_multisort($key, SORT_ASC, $annee, SORT_ASC, $arr);
 
-    //// préparer la sortie 
+    //// préparer la sortie
     foreach ( $arr as $v )
     {
       $value = ($v['value'] === '0')? '1' : $v['value'];

@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: text/plain; charset=utf-8');
 
 $out = "[{}]";
   if (!isset($_GET)) return $out;
@@ -27,13 +27,14 @@ $out = "[{}]";
 
   $sql = "SELECT `filiere`, `conso_totale`, ceil(`conso_agriculture`) as agriculture,
   ceil(`conso_industrie`) as industrie, ceil(`conso_tertiaire`) as tertiaire,
-  ceil(`conso_residentiel`) as residentiel, ceil(`conso_inconu`) as inconu
-  FROM `consomation_20_50`
-  WHERE   insee = '" . $_GET['i'] . "'
+  ceil(`conso_residentiel`) as residentiel, ceil(`conso_inconu`) as inconu,
+  annee
+  FROM `consomation`
+  WHERE   id_org = '" . $_GET['i'] . "'
   AND filiere = '" . $filiere . "'
   ORDER BY annee DESC
   LIMIT   1";
-
+  // echo $sql;die;
   $out = "source,target,value,annee\n";
   try
   {
@@ -47,30 +48,11 @@ $out = "[{}]";
       ($r['residentiel'] < 1) ? $res = 1 : $res = $r['residentiel'];
       ($r['inconu'] < 1) ? $inc = 1 : $inc = $r['inconu'];
 
-      $out .= "agriculture,total," . $agr . ",2016\n";
-      $out .= "industrie,total," . $ind . ",2016\n";
-      $out .= "tertiaire,total," . $ter . ",2016\n";
-      $out .= "residentiel,total," . $res . ",2016\n";
-      $out .= "inconu,total," . $inc . ",2016\n";
-      /*
-      if ($filiere === 'Electricité')
-      {
-      $out .= "agriculture,total," . $agr . ",2016\n";
-      $out .= "industrie,total," . $ind . ",2016\n";
-      $out .= "tertiaire,total," . $ter . ",2016\n";
-      $out .= "residentiel,total," . $res . ",2016\n";
-      $out .= "inconu,total," . $inc . ",2016\n";
-    }
-
-    if ($filiere === 'Gaz')
-    {
-    $out .= "total,agriculture," . $agr . ",2016\n";
-    $out .= "total,industrie," . $ind . ",2016\n";
-    $out .= "total,tertiaire," . $ter . ",2016\n";
-    $out .= "total,residentiel," . $res . ",2016\n";
-    $out .= "total,inconu," . $inc . ",2016\n";
-  }
-  */
+      $out .= "agriculture,total," . $agr . "," . $r['annee'] . "\n";
+      $out .= "industrie,total," . $ind . "," . $r['annee'] . "\n";
+      $out .= "tertiaire,total," . $ter . "," . $r['annee'] . "\n";
+      $out .= "residentiel,total," . $res . "," . $r['annee'] . "\n";
+      $out .= "inconu,total," . $inc . "," . $r['annee'] . "\n";
   }
 }
 catch ( Exception $e )
