@@ -1,4 +1,25 @@
-
+// $(document).ready(function() {
+//   $('body').progressTracker({
+//              horNumbering: false,
+//              horTitles: true,
+//              horTitlesOffset: 'top',
+//              horMobileOnly: true,
+//              verTracker: true,
+//              verStyle: 'fill',
+//              verColor: 'blue',
+//              verPosition: 'left',
+//              verMobile: false,
+//
+//              mobileThreshold: 770,
+//
+//              hovering: true,
+//
+//              trackAllHeadlines: true,
+//              // addFinalStop: true,
+//              // finalStopTitle: 'Last Section',
+//              scrollSpeed: 1200
+//          });
+// });
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 Variables globales
@@ -156,6 +177,15 @@ var iniUI = function ( insee, dept )
   //// cacher info, montrer contenu
   document.querySelector('#info').setAttribute('style', 'display: none');
   document.querySelector('#container').setAttribute('style', 'display: block');
+  $('#nav').removeClass('inactive');
+  $('#nav').addClass('active');
+
+  // dire à AOS que les section cachées il faut les animer
+  AOS.refresh();
+
+  // montrer la nav
+
+
 
   //// Commune ou EPCI ?
   var isCommune = true;
@@ -229,6 +259,7 @@ var iniUI = function ( insee, dept )
   {
     console.log("iniEmissionsEtablissements -> error");
   }
+
 }; // iniUI
 
 
@@ -358,6 +389,23 @@ var iniChiffresCles = function (insee)
     // iniTreemap(commune.insee);
   });
 
+  try
+  {
+    iniProduction(insee);
+  }
+  catch (e)
+  {
+    console.log("iniProduction -> error");
+  }
+
+  try
+  {
+    iniRecharge(insee,'code_insee');
+  }
+  catch (e)
+  {
+    console.log("iniRecharge -> error");
+  }
 }; // iniChiffresCles
 
 
@@ -509,6 +557,24 @@ var iniChiffresClesEPCI = function (insee)
     // iniTreemap(commune.insee);
   });
 
+
+  try
+  {
+    iniProduction(insee);
+  }
+  catch (e)
+  {
+    console.log("iniProduction -> error");
+  }
+
+  try
+  {
+    iniRecharge(insee,'epci');
+  }
+  catch (e)
+  {
+    console.log("iniRecharge -> error");
+  }
 }; // iniChiffresCles
 
 
@@ -559,15 +625,17 @@ var iniChaleurFroid = function (insee)
   {
     if (error) console.log(error);
 
+    document.querySelector('#chaleurFroid').setAttribute('style', 'display:block');
+
+    var out = "";
+
     if (data.length == 0)
     {
-      document.querySelector('#chaleurFroid').setAttribute('style', 'display:none');
+      out = "<p>Il n'y a pas de réseau chaleur / froid dans ce territoire.</p>";
     }
     else
     {
-      document.querySelector('#chaleurFroid').setAttribute('style', 'display:block');
-      // var out ="<table id='etabEtabsTable' width='100%'><thead><th width='14%'>Opérateur</th><th width='14%'>Année</th><th width='14%'>Filière</th><th width='14%'>Puissance (MW)</th><th width='14%'>Production (MWh)</th><th width='14%'>Résidentiel (MWh)</th><th width='14%'>Tertiaire (MWh)</th></thead>";
-      var out ="<table id='etabEtabsTable' width='100%'><thead><th width='14%'>Opérateur</th><th width='14%'>Année</th><th width='14%'>Résidentiel (MWh)</th><th width='14%'>Tertiaire (MWh)</th></thead>";
+      out ="<table id='etabEtabsTable' width='100%'><thead><th width='14%'>Opérateur</th><th width='14%'>Année</th><th width='14%'>Résidentiel (MWh)</th><th width='14%'>Tertiaire (MWh)</th></thead>";
       out += "<tbody>";
 
       var format = function (n)
@@ -579,20 +647,12 @@ var iniChaleurFroid = function (insee)
       {
         out += "<tr><td>" + data[n]['operateur']
         + "</td><td>" + data[n]['annee']
-        // + "</td><td>" + ((data[n]['filiere'] == 'C')? 'Chaleur' : 'Froid')
-        // + "</td><td>" + data[n]['pdl']
-        // + "</td><td>" + format(data[n]['puissance'])
-        // + "</td><td>" + format(data[n]['prod_tot'])
-        // + "</td><td>" + data[n]['pct_cog']
-        // + "</td><td>" + data[n]['conso_agriculture']
-        // + "</td><td>" + data[n]['conso_inconu']
-        // + "</td><td>" + data[n]['conso_industrie']
         + "</td><td>" + format(data[n]['conso_residentiel'])
         + "</td><td>" + format(data[n]['conso_tertiaire']) + "</td></tr>";
       }
       out += "</tbody></table>";
-      document.querySelector('#chaleurFroidData').innerHTML = out;
     }
+    document.querySelector('#chaleurFroidData').innerHTML = out;
   });
 };
 
@@ -768,6 +828,12 @@ var iniEmissionsEtablissements = function (insee,dept)
 
 };
 
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iniTreeMap
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
 var iniTreemap = function (insee, id)
 {
   var size = [etab.height, etab.width];
@@ -779,6 +845,12 @@ var iniTreemap = function (insee, id)
   //   treeMap("#etabBubbles2", size, 16, data);
   // });
 }
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iniPotentielENR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 
 var iniPotentielENR = function (codeRegion)
 {
@@ -796,6 +868,142 @@ var iniPotentielENR = function (codeRegion)
 
   });
 }
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iniProduction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+var iniProduction = function (id_org)
+{
+  d3.json('data/production.php?i=' + id_org, function (error, data)
+  {
+    if (error) { console.log("error", error); return; }
+    d = data[0];
+    _s('prod_nb', _f(d.nb));
+    _s('prod_puissance', _f(d.puissance));
+    _s('prod_puissance2', _f(parseFloat(d.puissance).toFixed(0)));
+    var ve_par_menage = (d.puissance * 100) / enr.menages;
+    _s('prod_menages', _f(ve_par_menage.toFixed(2)) + " %" );
+    var ve_eco_co2 = (112 * 10000 * d.puissance) / 100000000;
+    _s('prod_co2', _f( ve_eco_co2.toFixed(1)));
+  });
+};
+
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iniRecharge
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+var iniRecharge = function (id_org, type)
+{
+  console.log('ini recharge');
+  d3.json('data/recharge.php?i=' + id_org + '&t=' + type, function (error, data)
+  {
+    if (error) { console.log("error", error); return; }
+    //// détruire totalement la carte avant de faire une autre
+    $("#irve").html("");
+    document.querySelector('#rechargeOff').setAttribute('style', 'display: block');
+    document.querySelector('#rechargeOn').setAttribute('style', 'display: none');
+    //
+    // //// afficher la section
+    // document.querySelector('#recharge').setAttribute('style', 'display: block');
+
+    if (data[0].Ylatitude)
+    {
+      console.log(data[0]);
+      document.querySelector('#rechargeOff').setAttribute('style', 'display: none');
+      document.querySelector('#rechargeOn').setAttribute('style', 'display: block');
+      console.log("iniRecharge");
+      d = data[0];
+      _s('rech_nb', _f(data.length));
+        //// carte
+        var loc2 = [];
+        loc2.push(parseFloat(data[0].Ylatitude));
+        loc2.push(parseFloat(data[0].Xlongitude));
+
+        var zoom2 = 9;
+
+        $( "<div id=\"loc2\" style=\"height: 300px;\"></div>" ).appendTo("#irve");
+        try {delete window.map;} catch(e){}
+
+        var map2 = L.map('loc2').setView(loc2, zoom2);
+        var tiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        L.tileLayer( tiles, { attribution: attribution } ).addTo(map2);
+
+        var markerE = L.icon({
+          iconUrl: 'img/marker-e.png',
+        });
+
+        //// Popup
+        for (i in data)
+        {
+          var irveLoc = [];
+          irveLoc.push(parseFloat(data[i].Ylatitude));
+          irveLoc.push(parseFloat(data[i].Xlongitude));
+          // irveLoc.on('click', openPopup)
+          var marker = L.marker(irveLoc, {icon: markerE}).addTo(map2);
+          var msg = "<span class='markerClass markerE'>Point recharge VE</span>";
+          msg += "<b>" + data[i].n_station + "</b><br>";
+          if (data[i].a_station) msg += a_station + "<br>";
+          msg += data[i].nbre_pdc + " points de charge, ouvert ";
+          msg += data[i].accessibilite.replace('_', ' ') + "<br>";
+          msg += "Puissance max. : " + data[i].puiss_max + " kw. ";
+          msg += "Prise : " + data[i].type_prise;
+          marker.bindPopup(msg).openPopup();
+        }
+
+        // lancer les marqueurs GNV d'ici pour avoir la référence au map
+        iniGNV (id_org, type, map2);
+      }
+  });
+};
+
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iniGNV
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+var iniGNV = function (id_org, type, map)
+{
+  d3.json('data/gnv.php?i=' + id_org + '&t=' + type, function (error, data)
+  {
+    if (error) { console.log("error", error); return; }
+
+    if (data[0].Ylatitude)
+    {
+      console.log('ini iniGNV');
+      _s('gnv_nb', _f(data.length));
+
+      var markerG = L.icon({
+        iconUrl: 'img/marker-g.png',
+      });
+      //// Popup
+      for (i in data)
+      {
+        var loc = [];
+        loc.push(parseFloat(data[i].Ylatitude));
+        loc.push(parseFloat(data[i].Xlongitude));
+        var marker = L.marker(loc, {icon: markerG}).addTo(map);
+        var msg = "<span class='markerClass markerG'>Station GNV</span>";
+        msg += "<b>" + data[i].exploitant + "</b><br>";
+        msg += data[i].ad_station + "<br>";
+        msg += 'Carburant : ' + data[i].carburant + "<br> ";
+        msg += 'Accès PL : ' + data[i].acces_pl + "<br>";
+        msg += "Bio GNC : " + data[i].bio_gnc + " ";
+        marker.bindPopup(msg).openPopup();
+      }
+    }
+  });
+};
+
 
 var set_potentiel_solaire = function ()
 {

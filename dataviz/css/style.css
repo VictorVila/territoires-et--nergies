@@ -131,20 +131,21 @@ pre         {overflow: scroll; margin: 1rem 4%; padding: 2rem; color: rgb(152, 2
  *  Structure
  * ------------ */
 
-html    { font-size: 1rem; min-height: 100%; overflow-y: scroll;  background: #f8f8f8; }
-body    { min-height: 100% ;/* ! */ ; background: transparent url(../img/fond.png) 50% 60px no-repeat; font-family: "Noto Sans", Arial, sans-serif; text-align: justify;
+html    { font-size: 1rem; min-height: 100%; overflow-y: scroll;  background: #f8f8f8; scroll-behavior : smooth; }
+body    { min-height: 100% ;/* ! */ ; background: transparent url(../img/fond.png) 50% 0 no-repeat; font-family: "Noto Sans", Arial, sans-serif; text-align: justify;
 margin-top: -20px; padding-top: 20px;}
-main    {/* max-width: 780px;*/ height: auto; margin: 0 auto;  }
+main    {/* max-width: 780px;*/ height: auto; margin: 0 auto; padding-left: 220px; }
 .w      {  max-width: 780px; margin: 0 auto; padding: 0 4%; }
-
+/* #contenus { margin-left: 15%; } */
 
 /*
   logo
 ------------- */
-#logoW { background: #300a2b; font-size: .9rem; height: 1.5rem;
+#logoW {  width: 200px;  height: 100%; position: fixed; left: 0; top:0;
+   background: #300a2b; font-size: .9rem; line-height: 1.5rem;
   font-family: "Lato"; padding: 10px; text-transform: uppercase;
-  text-align: center; margin: 0; position: fixed; width: 100%; z-index: 10000;
-  box-shadow: 0 0 12px #300a2b; top: 0; overflow: hidden; }
+  text-align: center; margin: 0;   z-index: 10000;
+  box-shadow: 0 0 12px #300a2b; overflow: hidden; }
 #menu { max-width: 780px; margin: 0 auto; position: relative; text-align: center;}
 #print { text-align: right; position: absolute; right: 0; display: none;
     background: #d04343; color: #fff; text-transform: none;
@@ -155,12 +156,21 @@ main    {/* max-width: 780px;*/ height: auto; margin: 0 auto;  }
 #logoW a { text-decoration: none; }
 #apropos {float: right; text-transform: none; }
 #baseline { font-size: .9rem; }
+#logoH {display: none;}
+#logoV {display: block;margin: 10px auto; display: block; max-width: 90%}
+#nav {color: #fff; padding: 0; margin: 20px 0 0 0; list-style: none; text-align: left;}
+#nav a { color: #fff; padding: 10px; font-size: .9rem; text-transform: none;}
+#nav li li {list-style-position: inside;}
+.inactive { display: none; }
+.active { display: block; }
+.licence { margin: 60px auto 20px; display: block;}
+#nav i.aos-animate { border-left: 1px solid #fcc}
 
 /*
   recherche
 ------------- */
-#rechercheW { /*background: *//*#F44336*/ /*#fff9c4 url('../img/recherche.png');*/ padding-bottom: 2rem; margin-top: 2.5rem; }
-#recherche { position: relative; line-height: 100%; z-index: 100 ; }
+#rechercheW { padding-bottom: 2rem; margin-top: 0; }
+#recherche { position: relative; line-height: 100%; z-index: 100 ; margin: 0 auto;}
 #recherche p { margin: 0; /*text-align: center;*/ }
 #barreRecherche {padding:7px 2%; width: 96%; font-size: .9rem;
   border: 1px solid #b71c1c; }
@@ -179,6 +189,23 @@ small {font-size: .8rem}
 #comment, .marqueur { background: rgba(255, 255, 0, 0.8); }
 #resultatsRecherche #pasResultats:hover {background: #fff; cursor: default;}
 
+/*
+*  Structure desktop
+* ------------------------ */
+@media screen and (max-width: 640px)
+{
+  body{ background: transparent url(../img/fond.png) 50% 60px no-repeat;}
+  main { padding-left: 0; }
+  #logoW {  width: 100%; height: auto; }
+  #logoH {display: block; margin: 0  auto;}
+  #logoV {display: none;}
+  #nav { display: none; }
+  #contenus { margin-left: auto; }
+  #rechercheW { margin-top: 2.5rem; }
+  .active { display: none; }
+
+}
+
 
 /*
   titre
@@ -188,7 +215,7 @@ small {font-size: .8rem}
 h1.resultat { margin : 2rem ; color: #300a2b; font-family: 'Quattrocento Sans';}
 
 #questions { max-width: 100%; margin-top: 30px; }
-#questionCommune { top: 108px; }
+#questionCommune { top: 78px; }
 #questionDPE { top: -50px; right: 0px; }
 .question { position: absolute; }
 .questionG { margin: 0 0 0 20px; }
@@ -215,6 +242,7 @@ h1.resultat { margin : 2rem ; color: #300a2b; font-family: 'Quattrocento Sans';}
 #deptRegionEPCI { text-align: center; text-transform: uppercase; margin: 0 0 20px; }
 .presentation { padding: 20px; font-size: 1rem; background: #FFF9C4; border: 1px solid #fff176; }
 .presentation b { font-size: 1rem; }
+#chiffresCles {padding-top: 20px; }
 #chiffresCles p { margin: 0 ; padding: 0; line-height: 120%; }
 .chiffres b { font-size: 2.1rem;  font-family: 'Quattrocento Sans'; display:inline-block; width: 110px; text-align: right; padding-right: 10px; }
 #chiffresCles .source { padding: 40px 0 20px}
@@ -273,6 +301,7 @@ dpe
 
 /* communeDiv
 -------------------- */
+
 #container { zoom: 1; overflow: auto; }
 #communeW { background: #FDFFFE; padding: 0 0 40px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
 
@@ -424,13 +453,21 @@ dpe
 #enrW p#calculette_solaire { color: #300a2b; }
 #enrW #calculette_solaire span, #enrW #calculette_solaire b, #enrW input { color: #300a2b; }
 #enrW b { font-weight: bold; font-size: 1.3rem;}
+/* #enrW a { color: #fae74e; } */
 #enrW .source a { color: #fff; }
-#enrW span { /* color: #fff; font-family: "Lato"*/ font-weight: bold; /*font-family: 'Quattrocento Sans'; font-size: 1.4rem;*/}
+#enrW span { /* color: #fff; font-family: "Lato"*/ font-weight: bold; font-size: 1.6rem;/*font-family: 'Quattrocento Sans'; font-size: 1.4rem;*/}
 #enr_m2 { text-align: center; font-size: 2rem; width: 4rem; background: #fff; color: #3f51b5; font-family: 'Quattrocento Sans'; outline: none;  border: 1px dashed #3f51b5; }
 #enr_soleil { /*position : absolute; top: 20px; left: 20px; width: 140px; z-index: 1;*/ margin: 0 auto -20px; padding: 40px 0 0; }
 #calculette_solaire { /*text-transform: uppercase;*/ background: #fff9c4 /* url(../img/calculette.png) 95% 130% no-repeat*/; box-shadow: 0 0px 13px #166a90;
     /*text-align: left;*/ padding: 0;  position: relative;  z-index: 100 ; /*border: 5px solid #ffe680;*/ margin: 30px 0; color: #300a2b; }
 
+#irve, #preLoc { box-shadow: 0 2px 4px #000; }
+#enrW #irve b {font-size: 1rem; color: #333;}
+#enr_production {text-align: center; padding: 20px 0 40px; }
+#enrStats { display: flex; flex-wrap: wrap; justify-content: space-around;}
+#enrStats p { width: 30%; /*background: #2aaeea; */padding: 20px 10px 0; text-align: center;}
+/* #enrStats p:nth-child(2) {border-right: 1px dotted #fffa;   border-left: 1px dotted #fffa; } */
+#enrStats .dBlock {display: block; margin: 0 auto 20px; padding-bottom: 20px; border-bottom: 1px dotted #fae74e; }
 #calculette_solaire h3,
 #calculette_solaire p { color: #310b2c; text-align: center; }
 #calculette_solaire h3 {  margin: 0; padding: 0;  }
@@ -466,6 +503,17 @@ responsive
 360 x 640
 vert #4CAF50
 */
+@media screen and (min-width: 500px)
+{
+  .chiffres b { width: 44%; }
+}
+@media screen and (min-width: 980px)
+{
+  /* #chiffresCles p { float: none; width: 100%; }  */
+    /* Chiffres clés */
+    #chiffresCles {  zoom: 1 ;overflow: auto;}
+    #chiffresCles p { float: left; width: 49%; text-align: left;}
+}
 @media screen and (min-width: 640px)
 {
   .home { color: #fff; }
@@ -481,8 +529,6 @@ vert #4CAF50
   #titre-2 { height: 222px; background: url('../img/titre-2-m.png') 50% 0 no-repeat; }
   h1.resultat { margin : 0;}
 
-  /* infos */
-  .chiffres b { /*font-size: 3rem; */width: 150px; }
 
   /* dpe */
   #dpe p { font-size: 1rem; }
@@ -524,15 +570,12 @@ vert #4CAF50
   h2 { margin-top: 3rem; }
 
   /* recherche */
-  #barreRecherche {padding:7px 2%; width: 700px; font-size: 1.2rem;
+  #barreRecherche {padding:7px 2%; width: 96%; font-size: 1.2rem;
     border: 1px solid #3f51b5;
   }
 
-  #resultatsRecherche { top: 68px; margin: 0 auto; width: 710px; }
+#resultatsRecherche { top: 68px; margin: 0 auto; /*width: 710px; */}
 
-  /* Chiffres clés */
-  #chiffresCles { zoom: 1 ; overflow: auto;}
-  #chiffresCles p { float: left; width: 49%; }
   /* titre résultats */
   #titre-1 { height: 174px; background: url('../img/titre-1.png') 50% 0 no-repeat; }
   #titre-2 { height: 222px; background: url('../img/titre-2.png') 50% 0 no-repeat; }
@@ -646,3 +689,14 @@ h3, p { font-family: 'Noto Sans'; }
   }
 /* leaflet ; supprimer l'image shadow */
 .leaflet-shadow-pane { display: none; }
+
+/* IRVE et GNV
+-------------------- */
+.markerClass { font-size: .8rem; display: block; }
+.markerE { color: #e65540; }
+.markerG { color: #3993b9; }
+.stations { display: flex; margin: 40px 0 30px;}
+/* .stations span {display: block;} */
+.stations p { padding-left: 100px; width: 48%; min-height: 100px; text-align: left;}
+.stationsE { background: url(../img/station-e.png) 0 0 no-repeat; padding-right: 1%; }
+.stationsG { background: url(../img/station-g.png) 0 0 no-repeat; padding-left: 1%; }

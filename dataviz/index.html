@@ -5,6 +5,7 @@
   <title>Territoires et énergies</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Quattrocento+Sans:700" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link href="./assets/leaflet/leaflet.css" rel="stylesheet">
   <link href="./css/style.css?i=1231" rel="stylesheet">
 </head>
@@ -12,8 +13,31 @@
   <main>
     <div id="logoW">
       <div id="menu" class="w">
-        <a href="/"><span id="logo"><img src="img/territoires-et-energies.png" alt="Territoires et énergies" /></span></a>
+        <a href="/"><span id="logo">
+          <img id="logoH" src="img/territoires-et-energies.png" alt="Territoires et énergies" />
+          <img id="logoV" src="img/territoires-et-energies-logo-sidebar.png" alt="Territoires et énergies" />
+        </span></a>
       </div>
+      <ol id='nav' class="inactive" data-aos="fade-left" data-aos-duration="3000">
+        <li><i data-aos="fade-right" data-aos-anchor="#info"></i> <a href="#rechercheW">Portrait du territoire</a></li>
+        <li><i data-aos="fade-right" data-aos-anchor="#dpe"></i><a href="#dpeW">Performance énergetique</a></li>
+        <li><i data-aos="fade-right" data-aos-anchor="#consommation"></i><a href="#consommation">Consommation totale</a>
+        <ul>
+          <li><a href="#consommationSecteurs">Par secteurs</a></li>
+          <li><a href="#consommationEvolution">Evolution</a></li>
+          <li><a href="#chaleurFroid">Chaleur/Froid</a></li>
+        </ul></li>
+        <li><i data-aos="fade-right" data-aos-anchor="#airDiv"></i><a href="#airDiv">Qualité de l'air</a></li>
+        <li><i data-aos="fade-right"
+     data-aos-anchor="#enrW"></i><a href="#enrW">Energies renouvelables</a>
+          <ul>
+            <li><a href="#enrH2-1">Photovoltaïque</a></li>
+            <li><a href="#recharge">VE & GNV</a></li>
+            <li><a href="#enrH2-2">Potentiel EnR</a></li>
+            <li><a href="#calculette_solaire_anchor">Calculette</a></li>
+          </ul>
+        </li>
+      </ol>
     </div>
 
     <div id="rechercheW">
@@ -24,7 +48,7 @@
     </div>
 
     <div id="infoW">
-      <div id="info" class='w'>
+      <div id="info" class='w' data-aos="fade-up" data-aos-duration="1000">
         <h1 class='home'>Explorez les données Air et Energie<br>des EPCI et de 371 communes</h1>
         <div><img id='questions' src='img/titre-1.png'></div>
         <h2>Présentation de l'outil</h2>
@@ -36,7 +60,6 @@
         <p><span class='marqueur'>Commencez à écrire</span> le nom d'un orgznisme et <span class='marqueur'>faîtes une sélection sur la liste proposée</span>.</p>
         <p>Vous découvrirez <b>combien et comment</b> cet organisme consomme de l'énergie ainsi que les <b>émissions</b> de substances polluantes qui sont associées.</p>
 
-
         <h2>Limité aux collectivités de 20 000 à 50 000 habitants</h2>
         <p>Cet outil a été créé dans la cadre du concours de datavisualisation #DataEnergie. Comme spécifié par le défi n°1 du concours, cet outil cible exclusivement les colectivités de 20K à 50K habitants. Si vous ne trouvez pas une commune, il est possible que sa population soit inférieure ou supérieure à ces limites.</p>
         <p>Cépendant, la conception de l'outil permet d'envisager qu'il soit facilement éténdu à toutes les collectivités.</p>
@@ -46,21 +69,23 @@
         <p>
           A la vue de l'intérêt montré par certaines EPCI, cet outil a été étendu à l'ensemble des EPCI. N'hésitez à remonter vos besoins concernant cet outil, par exemple via twitter : @tiropcom
         </p>
-
+        <p class="center">
+            <a class="licence" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"><img src="img/licence-at-nc-sa.png" alt="Licence at-nc-sa"  /></a>
+        </p>
       </div>
+
     </div>
 
     <div id="container" style="display: none;">
 
+      <div id="contenus">
 
       <div id="communeW">
         <div id="commune" class='w'>
-          <!-- <h2>Chiffres-clés de la commune</h2> -->
           <img id='questionCommune' src='img/question-commune.png' class='question questionG'>
 
-
-          <p id="libelle3rem"></p>
-          <p id='deptRegionEPCI'>
+          <p id="libelle3rem" data-aos="fade-down" data-aos-duration="3000"></p>
+          <p id='deptRegionEPCI' data-aos="fade-up" >
             <b class="upper" id="deptRegion"></b><br>
             <span id="wrapCommune">
               <i>EPCI</i> <span id="epci"></span>,<br />
@@ -71,12 +96,12 @@
             </span>
           </p>
 
-          <div id="preLoc" class="w">
+          <div id="preLoc" data-aos="fade-up">
             <div id="loc" class="w" style="height: 300px; border: 3px solid #fff;"></div>
           </div>
 
 
-          <div id="chiffresCles">
+          <div id="chiffresCles" data-aos="fade-up" data-aos-duration="3000">
             <p class="chiffres"><b id="hb2015"></b> habitants en 2015</p>
             <p class="chiffres"><b id="hb2010"></b> habitants depuis 2010</p>
             <p class="chiffres"><b id="menages"></b> ménages</p>
@@ -89,23 +114,23 @@
       </div>
 
 
-      <div id='dpeW'>
+      <div id='dpeW' data-aos="fade-zoom">
         <div id='dpe' class='w'>
           <h2>Performance énergétique des logements</h2>
-          <div id='dpe1'>
+          <div id='dpe1' data-aos="flip-left" data-aos-duration="1000">
             <p><b id="logements"></b>Logements (données Insee)</p>
             <p><b id="logementsDPE"></b>Logements avec DPE</p>
             <p><b id="dpeAnnee"></b>Année moyenne de construction </p>
           </div>
-          <div id='dpe2'>
+          <div id='dpe2' data-aos="flip-left" data-aos-duration="2000">
             <div id="dpe2_conso"></div>
             <div id="dpe2_ges"></div>
             <div id="dpeMoyenne"></div>
           </div>
-          <div id='dpe3'>
+          <div id='dpe3' data-aos="flip-left" data-aos-duration="3000">
             <p><b id="dpeSurface"></b>Surface moyenne en m²</p>
-            <p><b id="dpeChauffage"></b>Besoin en chauffage w/m²</p>
-            <p><b id="dpeAltitude"></b>Altitude en mètres</p>
+            <p><b id="dpeChauffage"></b>Besoin moyen en chauffage w/m²</p>
+            <p><b id="dpeAltitude"></b>Altitude moyenne en mètres</p>
             <p class='source'>Données publiées par<br /><a href='https://www.data.gouv.fr/fr/datasets/base-des-diagnostics-de-performance-energetique-dpe/'>ADEME</a></p>
           </div>
         </div>
@@ -115,16 +140,16 @@
         <div id="consommation" class='w'>
         <h2>Quelle est la consommation d'énergie ?</h2>
         <h3>Consommation totale de gaz et d'électricité en 2017</h3>
-        <dl id="consoTotaleBig">
+        <dl id="consoTotaleBig" data-aos="flip-left">
           <dt id="consoTotale" class="xxxl latoBlack"></dt>
           <dd id="consoTotaleInfo"><span class="l">MWh</span><br><span class="m ttu">(éléctricité + gaz) </span></dd>
           <dd id="consoTotaleEvo"></dd>
         </dl>
 
-        <h3>Participation de chaque secteur à la consommation totale</h3>
+        <h3 id="consommationSecteurs">Participation de chaque secteur à la consommation totale</h3>
         <div class="eg">
 
-          <div class="e">
+          <div class="e" data-aos="flip-left">
             <img id="icon_electricite" class="conso_icon" src="img/electricite.png">
             <h3>Electricité</h3>
             <span id="consoTotaleE" class="latoBlack"></span> <span class="m">MWh</span><br>
@@ -133,7 +158,7 @@
             <div id="secteursE" class="svg-container"></div>
           </div>
 
-          <div class="g">
+          <div class="g" data-aos="flip-right">
             <img id="icon_gaz" class="conso_icon" src="img/gaz.png">
             <h3>Gaz</h3>
             <span id="consoTotaleG" class="latoBlack"></span> <span class="m">MWh</span><br>
@@ -143,8 +168,8 @@
           </div>
         </div> <!-- eg -->
 
-        <h3 class="center mb0">Comment évolue cette consommation ? (survolez le graphique)</h3>
-        <div class="svg-container-stream">
+        <h3 id="consommationEvolution" class="center mb0">Comment évolue cette consommation ? (survolez le graphique)</h3>
+        <div class="svg-container-stream" data-aos="flip-right">
           <div id="streamChart"></div>
         </div>
         <div id="streamLegend">
@@ -168,7 +193,7 @@
       </div><!-- consommation -->
         <div id="chaleurFroid" class='w'>
           <h2>Réseau chaleur froid</h2>
-          <div id="chaleurFroidData"></div>
+          <div id="chaleurFroidData" data-aos="flip-up"></div>
           <p class='source'>Données publiées par <a href='http://www.statistiques.developpement-durable.gouv.fr/energie-climat/r/toutes-energies-donnees-locales-denergie-2.html'>statistiques.developpement-durable.gouv.fr</a></p>
         </div>
 
@@ -259,7 +284,7 @@ air -->
         </p>
 
         <div id="etab">
-          <div id="etabInfo"></div>
+          <div id="etabInfo"  data-aos="flip-down"></div>
           <div id="etabBubbles">
             <p>Géorisques n'a pas recensé des établissements polluants dans cette commune.</p>
           </div>
@@ -270,9 +295,51 @@ air -->
 
 
     <div id="enrW">
+      <div id="trigger-left">
+        &nbsp;
+      </div>
       <div id="enr" class="w">
         <img id="enr_soleil" src="img/soleil.png">
-        <h2 id="enrH2-1">Quel est le potentiel des énergies renouvelables à <span class="libelle_commune"></span>&nbsp;?</h2>
+        <h2 id="enrH2-1">Production photovoltaïque locale</h2>
+        <p id="enr_production"><img src="img/panel.png" />&nbsp; Il y a <span id="prod_nb"></span> installations de panneaux photovoltaïques pour une puissance de raccordement de <span id="prod_puissance"></span> kw.</p>
+        <p class="center">
+          <img src="img/flecha-abaixo.png" style="opacity:.4"/>
+        </p>
+        <div id="enrStats" data-aos="flip-up">
+          <p><img class="dBlock" src="img/route.png" />&nbsp; Cela peut alimenter <span id="prod_puissance2"></span> voitures électriques parcourant 10&nbsp;000 km par an <sup>(1)</sup>.</p>
+          <p><img class="dBlock" src="img/enr-co2.png" />&nbsp; Soit une économie de <span id="prod_co2"></span> tonnes de CO2 par&nbsp;an&nbsp;<sup>(2)</sup>.</p>
+          <p><img class="dBlock" src="img/ve.png" />&nbsp; <span id="prod_menages"></span>&nbsp;<sup>(3)</sup> des ménages peuvent charger une voiture électrique avec de l'électricité propre et locale.</p>
+        </div>
+
+
+        <p class='source'>Source : <a href="https://opendata.agenceore.fr/explore/dataset/nombre-dinstallations-solaires-par-commune/information/?disjunctive.1_f_code_insee_installation">Agence ORE</a>, <a href="http://carlabelling.ademe.fr/chiffrescles/r/evolutionTauxCo2">ADEME</a>
+        <br />(1) Hypothèses : sur un an, 1 kWc de panneaux photovoltaïques installés sur une toiture en France métropolitaine produit l'électricité nécessaire à alimenter une voiture électrique sur une distance de plus de 10.000 kilomètres, selon une étude commune réalisée en 2019 par le syndicat Enerplan et l'association Sun Power Europe.
+        <br /><sup>(2)</sup> Calcul basé sur la moyenne de CO2 émise par voiture et par km, publié par l'ADEME pour 2018.
+        <br /><sup>(3)</sup> Ratio entre le nombre de voitures électriques et le nombre de ménages dans ce territoire.</p>
+
+        <div id="recharge">
+          <h2>Points de recharge VE et stations GNV </h2>
+          <p id="rechargeOff">Il n'y a pas de points de recharge dans ce territorie </p>
+          <div id="rechargeOn">
+            <p class="center">Dans ce territorie, il y a : </p>
+            <div class="stations">
+              <p class="stationsE" data-aos="flip-up">
+                <span id="rech_nb"></span>
+                points de recharge pour véhicule électrique
+              </p>
+              <p class="stationsG" data-aos="flip-up">
+                <span id="gnv_nb"></span>
+                stations pour véhicules à gaz naturel (GNV)
+              </p>
+            </div>
+          </div>
+
+          <div id="irve" data-aos="flip-up"> </div>
+          <p class='source'>Sources : <a href="https://www.data.gouv.fr/fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques/">Etalab</a> (IRVE) et <a href="https://opendata.reseaux-energies.fr/explore/dataset/stations-gnv/export/">Odré</a> (GNV)</p>
+        </div>
+
+
+        <h2 id="enrH2-2">Quel est le potentiel des énergies renouvelables&nbsp;?</h2>
 
         <div class="imgTxt">
           <img src="img/eoliennes.png">
@@ -288,9 +355,9 @@ air -->
           <p>Quelle serait la production électrique si <b id="enr_commune"></b> comptait avec un seul m² de paneaux solaires par menage ? Et avec 3, 5 ou 8 m²&nbsp;?</p>
         </div>
         <!-- <h2>Calculette du potentiel solaire :</h2> -->
-        <p><b>Modifiez</b> le nombre de m² de la calculette ci-dessous pour découvrir quelle partie de la consommation électrique serait couverte par la production des panneaux solaires.</p>
+        <p id='calculette_solaire_anchor'><b>Modifiez</b> le nombre de m² de la calculette ci-dessous pour découvrir quelle partie de la consommation électrique serait couverte par la production des panneaux solaires.</p>
 
-        <div id='calculette_solaire'>
+        <div id='calculette_solaire' data-aos="flip-up">
           <h3 id="titre">Calculette du potentiel solaire</h3>
           <p>Le secteur résidentiel <span class="libelle_commune"></span><br>consomme <span id="enr_conso_electrique" class='marqueur'></span> MWh/an d'électricité.</p>
 
@@ -314,8 +381,11 @@ air -->
       </div>
     </div>
 
-        </div>
-    <!-- <p id="apropos">A propos</p> -->
+  </div> <!-- ./contenus -->
+  <p class="center">
+      <a class="licence" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"><img src="img/licence-at-nc-sa.png" alt="Licence at-nc-sa"  /></a>
+  </p>
+  </div> <!-- ./container -->
 
   </main>
   <script src="js/d3.v3.min.js"></script>
@@ -323,6 +393,16 @@ air -->
   <script src="js/sankey.v3-2.js"></script>
   <script src="assets/leaflet/leaflet.js"></script>
   <script src="assets/jquery/jquery-3.3.1.min.js"></script>
+
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+			AOS.init({
+				// easing: 'ease-out-back',
+				duration: 1000
+			});
+
+		</script>
+
   <script src="js/main.js"></script>
 </body>
 </html>
